@@ -269,4 +269,9 @@
     <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Peeking notification are snoozing for 1 minute.</string>
     <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Peeking notifications are snoozing for <xliff:g id="number">%d</xliff:g> minutes.</string>
 
+    <!-- OnTheSpot: Action denial button text. [CHAR LIMIT=NONE] -->
+    <string name="on_the_spot_deny">NO THANKS</string>
+    <!-- OnTheSpot: Action confirmation button text. [CHAR LIMIT=NONE] -->
+    <string name="on_the_spot_confirm">OKAY</string>
+
 </resources>
