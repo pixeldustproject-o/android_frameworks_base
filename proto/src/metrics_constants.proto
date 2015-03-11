@@ -4574,5 +4574,6 @@ message MetricsEvent {
 
     // PixelDust custom constants
     PIXELDUST = 2000;
+    LOCKSCREEN_WEATHER_SETTINGS = 2050;
   }
 }
