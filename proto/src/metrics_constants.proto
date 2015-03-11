@@ -4571,6 +4571,7 @@ message MetricsEvent {
 
     // PixelDustSettings Constant
     PIXELDUST = 2000;
+    LOCKSCREEN_WEATHER_SETTINGS = 2050;
 
     // Add new aosp constants above this line.
     // END OF AOSP CONSTANTS
