@@ -3985,6 +3985,12 @@ public final class Settings {
          */
         public static final String ALERT_ON_CHARGED_LEVEL = "alert_on_charged_level";
 
+	/**
+         * show the membar in recents
+         *  @hide
+         */
+        public static final String SYSTEMUI_RECENTS_MEM_DISPLAY = "systemui_recents_mem_display";
+
         /**
          * IMPORTANT: If you add a new public settings you also have to add it to
          * PUBLIC_SETTINGS below. If the new setting is hidden you have to add
