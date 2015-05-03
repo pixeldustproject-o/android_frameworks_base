@@ -6278,6 +6278,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         return mDeviceInteractive;
     }
 
+    private ArrayList<String> mBlacklist = new ArrayList<String>();
+
     @Override  // NotificationData.Environment
     public boolean isDeviceProvisioned() {
         return mDeviceProvisionedController.isDeviceProvisioned();
@@ -6375,8 +6377,8 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.RECENTS_ICON_PACK),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                  Settings.System.USE_SLIM_RECENTS),
-                  false, this, UserHandle.USER_ALL);
+                    Settings.System.USE_SLIM_RECENTS),
+                    false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.SYSTEM_UI_THEME),
                     false, this, UserHandle.USER_ALL);
@@ -6391,6 +6393,9 @@ public class StatusBar extends SystemUI implements DemoMode,
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.FP_SWIPE_TO_DISMISS_NOTIFICATIONS),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_BLACKLIST_VALUES),
                     false, this, UserHandle.USER_ALL);
         }
 
@@ -6460,6 +6465,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateDozeBrightness();
             setStatusBarWindowViewOptions();
             setLockscreenMediaMetadata();
+            final String blackString = Settings.System.getString(mContext.getContentResolver(),
+                    Settings.System.HEADS_UP_BLACKLIST_VALUES);
+            splitAndAddToArrayList(mBlacklist, blackString, "\\|");
             setQsPanelOptions();
             updateQsPanelResources();
             setUseLessBoringHeadsUp();
@@ -8232,6 +8240,11 @@ public class StatusBar extends SystemUI implements DemoMode,
         isImportantHeadsUp = notificationPackageName.contains("dialer") ||
                 notificationPackageName.contains("messaging");
 
+        // check if package is blacklisted first
+        if (isPackageBlacklisted(sbn.getPackageName())) {
+            return false;
+        }
+
         if (!mUseHeadsUp || isDeviceInVrMode() || (!isDozing() && mLessBoringHeadsUp &&
                 !isImportantHeadsUp)) {
             if (DEBUG) Log.d(TAG, "No peeking: no huns or vr mode or less boring headsup enabled");
@@ -8301,6 +8314,22 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
 
         return true;
+    }
+
+    private boolean isPackageBlacklisted(String packageName) {
+        return mBlacklist.contains(packageName);
+    }
+
+    private void splitAndAddToArrayList(ArrayList<String> arrayList,
+            String baseString, String separator) {
+        // clear first
+        arrayList.clear();
+        if (baseString != null) {
+            final String[] array = TextUtils.split(baseString, separator);
+            for (String item : array) {
+                arrayList.add(item.trim());
+            }
+        }
     }
 
     /**
