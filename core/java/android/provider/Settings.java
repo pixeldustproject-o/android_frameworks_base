@@ -4243,10 +4243,17 @@ public final class Settings {
         public static final String POWER_MENU_ANIMATIONS = "power_menu_animations";
 
         /**
-        * Whether to show QS panel footer warnings like for active VPN
-        * @hide
-        */
-       public static final String QS_FOOTER_WARNINGS = "qs_footer_warnings";
+         * Whether to display the screenrecord option in the power menu
+         *
+         * @hide
+         */
+        public static final String POWERMENU_SCREENRECORD = "powermenu_screenrecord";
+
+        /**
+         * Whether to show QS panel footer warnings like for active VPN
+         * @hide
+         */
+        public static final String QS_FOOTER_WARNINGS = "qs_footer_warnings";
 
         /**
          * @hide
