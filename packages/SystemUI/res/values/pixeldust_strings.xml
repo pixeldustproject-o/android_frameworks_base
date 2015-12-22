@@ -54,4 +54,9 @@
     <string name="accessibility_quick_settings_sync_on">Sync on</string>
     <string name="accessibility_quick_settings_sync_changed_off">Sync turned off</string>
     <string name="accessibility_quick_settings_sync_changed_on">Sync turned on</string>
+
+    <!-- Navigation Bar tile -->
+    <string name="quick_settings_navbar_title">NavBar</string>
+    <string name="quick_settings_navbar">NavBar Enabled</string>
+    <string name="quick_settings_navbar_off">NavBar Disabled</string>
 </resources>
