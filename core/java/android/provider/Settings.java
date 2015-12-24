@@ -4545,6 +4545,12 @@ public final class Settings {
         public static final String AMBIENT_DISPLAY_SHOW_BATTERY_TEXT = "ambient_display_show_battery_text";
 
         /**
+         * Show four g instead of lte
+         * @hide
+         */
+        public static final String SHOW_FOURG = "show_fourg";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
