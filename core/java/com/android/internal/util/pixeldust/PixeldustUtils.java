@@ -20,7 +20,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.hardware.input.InputManager;
+import android.net.ConnectivityManager;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.PowerManager;
@@ -147,5 +149,11 @@ public class PixeldustUtils {
             }
         }
         return null;
+    }
+
+    public static boolean isWifiOnly(Context context) {
+        ConnectivityManager cm = (ConnectivityManager)context.getSystemService(
+                Context.CONNECTIVITY_SERVICE);
+        return (cm.isNetworkSupported(ConnectivityManager.TYPE_MOBILE) == false);
     }
 }

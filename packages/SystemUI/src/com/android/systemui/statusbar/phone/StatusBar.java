@@ -479,6 +479,9 @@ public class StatusBar extends SystemUI implements DemoMode,
     // settings
     private QSPanel mQSPanel;
 
+    // 4G instead of LTE
+    private boolean mShow4G;
+
     // top bar
     protected KeyguardStatusBarView mKeyguardStatusBar;
     KeyguardStatusView mKeyguardStatusView;
@@ -6323,6 +6326,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN_FP),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.SHOW_FOURG),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -6368,6 +6374,16 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.FORCE_AMBIENT_FOR_MEDIA))) {
                 setForceAmbient();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.SHOW_FOURG))) {
+                mShow4G = Settings.System.getIntForUser(
+                    mContext.getContentResolver(),
+                    Settings.System.SHOW_FOURG,
+                    0, UserHandle.USER_CURRENT) == 1;
+                    mCommandQueue.restartUI();
+                    updateRowStates();
+                    updateClearAll();
+                    updateEmptyShadeView();
             }
         }
 
@@ -6382,7 +6398,14 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateRecentsMode();
             setForceAmbient();
             updateFingerprintQuickPulldown();
+            updateShow4G();
         }
+
+        private void updateShow4G() {
+            boolean mShow4G = Settings.System.getIntForUser(mContext.getContentResolver(),
+                    Settings.System.SHOW_FOURG, 0, UserHandle.USER_CURRENT) == 1;
+        }
+
     }
 
     private void updateFingerprintQuickPulldown() {
