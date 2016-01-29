@@ -6260,6 +6260,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     private ArrayList<String> mBlacklist = new ArrayList<String>();
+    private ArrayList<String> mWhitelist = new ArrayList<String>();
 
     @Override  // NotificationData.Environment
     public boolean isDeviceProvisioned() {
@@ -6378,6 +6379,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.HEADS_UP_BLACKLIST_VALUES),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.HEADS_UP_WHITELIST_VALUES),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -6440,12 +6444,16 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
 
         public void update() {
+            ContentResolver resolver = mContext.getContentResolver();
             updateDozeBrightness();
             setStatusBarWindowViewOptions();
             setLockscreenMediaMetadata();
-            final String blackString = Settings.System.getString(mContext.getContentResolver(),
+            final String blackString = Settings.System.getString(resolver,
                     Settings.System.HEADS_UP_BLACKLIST_VALUES);
+            final String whiteString = Settings.System.getString(resolver,
+                    Settings.System.HEADS_UP_WHITELIST_VALUES);
             splitAndAddToArrayList(mBlacklist, blackString, "\\|");
+            splitAndAddToArrayList(mWhitelist, whiteString, "\\|");
             setQsPanelOptions();
             updateQsPanelResources();
             setUseLessBoringHeadsUp();
@@ -8219,9 +8227,14 @@ public class StatusBar extends SystemUI implements DemoMode,
         isImportantHeadsUp = notificationPackageName.contains("dialer") ||
                 notificationPackageName.contains("messaging");
 
+        boolean whiteListed = isPackageWhitelisted(sbn.getPackageName());
         // check if package is blacklisted first
         if (isPackageBlacklisted(sbn.getPackageName())) {
             return false;
+        }
+
+        if (whiteListed && !isDozing()) {
+            return true;
         }
 
         if (!mUseHeadsUp || isDeviceInVrMode() || (!isDozing() && mLessBoringHeadsUp &&
@@ -8297,6 +8310,10 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     private boolean isPackageBlacklisted(String packageName) {
         return mBlacklist.contains(packageName);
+    }
+
+    private boolean isPackageWhitelisted(String packageName) {
+        return mWhitelist.contains(packageName);
     }
 
     private void splitAndAddToArrayList(ArrayList<String> arrayList,
