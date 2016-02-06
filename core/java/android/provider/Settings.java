@@ -4860,6 +4860,24 @@ public final class Settings {
         public static final String SYSTEM_THEME_CURRENT_OVERLAY = "system_theme_current_overlay";
 
         /**
+         * Hide lockscreen date
+         * @hide
+         */
+        public static final String SHOW_LOCKSCREEN_DATE = "show_lockscreen_date";
+
+        /**
+         * Hide lockscreen clock
+         * @hide
+         */
+        public static final String SHOW_LOCKSCREEN_CLOCK = "show_lockscreen_clock";
+
+        /**
+         * Hide lockscreen alarm
+         * @hide
+         */
+        public static final String SHOW_LOCKSCREEN_ALARM = "show_lockscreen_alarm";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5062,6 +5080,9 @@ public final class Settings {
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_DISPLAY);
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_STYLE);
             PRIVATE_SETTINGS.add(STATUSBAR_CLOCK_DATE_FORMAT);
+            PRIVATE_SETTINGS.add(SHOW_LOCKSCREEN_DATE);
+            PRIVATE_SETTINGS.add(SHOW_LOCKSCREEN_CLOCK);
+            PRIVATE_SETTINGS.add(SHOW_LOCKSCREEN_ALARM);
         }
 
         /**
