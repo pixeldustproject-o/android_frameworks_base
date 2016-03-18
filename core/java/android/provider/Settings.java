@@ -4275,6 +4275,12 @@ public final class Settings {
          */
         public static final String ALERT_ON_CHARGED_LEVEL = "alert_on_charged_level";
 
+        /** Whether to skip music track with volume rocker
+        /**
+         * @hide
+         */
+        public static final String VOLUME_BUTTON_MUSIC_CONTROL = "volume_button_music_control";
+
         /**
          * Volume rocker wake
          * @hide
@@ -4457,6 +4463,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(QS_LAYOUT_ROWS);
             PRIVATE_SETTINGS.add(VOLUME_LINK_NOTIFICATION);
             PRIVATE_SETTINGS.add(WAKE_WHEN_PLUGGED_OR_UNPLUGGED);
+            PRIVATE_SETTINGS.add(VOLUME_BUTTON_MUSIC_CONTROL);
         }
 
         /**
