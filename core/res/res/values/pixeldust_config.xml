@@ -104,4 +104,7 @@
            1. Lenient threshold
     -->
     <integer name="config_LTE_RSRP_threshold_type">0</integer>
+
+    <!-- Whether device has dash charging support -->
+    <bool name="config_hasDashCharger">false</bool>
 </resources>
