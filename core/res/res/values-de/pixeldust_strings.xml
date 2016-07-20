@@ -16,7 +16,7 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-    <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
-    <string name="system_error_vendorprint">Your vendor image does not match the system. Please flash the <xliff:g id="string">%s</xliff:g> vendor image for your device</string>
+  <!-- Vendor mismatched fingerprint warning [CHAR LIMIT=NONE] -->
+  <string name="system_error_vendorprint">Ihr Vendor-Image entspricht nicht dem System. Bitte flashen sie das <xliff:g id="string">%s</xliff:g> Vendor-Image für ihr Gerät.</string>
 
 </resources>
