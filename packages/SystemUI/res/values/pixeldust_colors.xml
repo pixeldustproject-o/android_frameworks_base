@@ -36,4 +36,7 @@
 
     <!-- Alert when screen off and charging if charge level becomes good -->
     <color name="battery_level_good_color">#ff319111</color><!-- green -->
+
+    <!-- QS edit page background color -->
+    <color name="qs_edit_item_decoration_bg">@*android:color/secondary_device_default_settings_light</color>
 </resources>
