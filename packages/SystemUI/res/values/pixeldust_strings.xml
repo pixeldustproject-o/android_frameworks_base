@@ -235,4 +235,9 @@
 
     <!-- The contents of the Ambient Weather bottom view -->
     <string name="ambient_weather_info">%1$s &amp; %2$s</string>
+
+    <!-- Expanded Desktop QS Tile -->
+    <string name="quick_settings_expanded_desktop_label">Expanded desktop</string>
+    <string name="quick_settings_expanded_desktop">Expanded</string>
+    <string name="quick_settings_expanded_desktop_off">Normal</string>
 </resources>
