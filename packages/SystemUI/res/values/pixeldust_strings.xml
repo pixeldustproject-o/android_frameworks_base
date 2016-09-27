@@ -190,6 +190,9 @@
     <!-- Google Sound Search tile -->
     <string name="quick_settings_sound_search">Sound search</string>
 
+    <!-- PixelDust Settings Tile -->
+    <string name="quick_settings_pixeldust_label">PixelDust Settings</string>
+
     <!-- Text to use when the number in a notification info is too large
          (greater than status_bar_notification_info_maxnum, defined in
          values/config.xml) and must be truncated.

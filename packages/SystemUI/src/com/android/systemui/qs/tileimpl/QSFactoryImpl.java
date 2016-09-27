@@ -26,6 +26,7 @@ import com.android.systemui.qs.tiles.AirplaneModeTile;
 import com.android.systemui.qs.tiles.AmbientLiftToWakeTile;
 import com.android.systemui.qs.tiles.AlwaysOnDisplayTile;
 import com.android.systemui.qs.tiles.BatterySaverTile;
+import com.android.systemui.qs.tiles.PDSettingsTile;
 import com.android.systemui.qs.tiles.BluetoothTile;
 import com.android.systemui.qs.tiles.CastTile;
 import com.android.systemui.qs.tiles.CellularTile;
@@ -99,6 +100,7 @@ public class QSFactoryImpl implements QSFactory {
         else if (tileSpec.equals("reboot")) return new RebootTile(mHost);
         else if (tileSpec.equals("soundsearch")) return new SoundSearchTIle(mHost);
         else if (tileSpec.equals("always_on_display")) return new AlwaysOnDisplayTile(mHost);
+        else if (tileSpec.equals("pixeldust_settings")) return new PDSettingsTile(mHost);
         // Intent tiles.
         else if (tileSpec.startsWith(IntentTile.PREFIX)) return IntentTile.create(mHost, tileSpec);
         else if (tileSpec.startsWith(CustomTile.PREFIX)) return CustomTile.create(mHost, tileSpec);
