@@ -3931,6 +3931,15 @@ public final class Settings {
         /** Beginning of custom settings **/
 
         /**
+         * Whether allowing pocket service to register sensors and dispatch informations.
+         *   0 = disabled
+         *   1 = enabled
+         * @author Carlo Savignano
+         * @hide
+         */
+        public static final String POCKET_JUDGE = "pocket_judge";
+
+        /**
          * Use latest screen-on brightness value for Ambient Display
          * @hide
          */
