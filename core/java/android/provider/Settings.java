@@ -4181,6 +4181,12 @@ public final class Settings {
          */
         public static final String SCREENSHOT_CROP_AND_SHARE = "screenshot_crop_and_share";
 
+          /**
+          * Whether to show the negociated charger current in the lockscreen
+          * @hide
+          */
+         public static final String LOCKSCREEN_CHARGING_CURRENT = "lockscreen_charging_current";
+ 
         /**
          * Define the crop behavior of screenshot crop & share
          * @hide
