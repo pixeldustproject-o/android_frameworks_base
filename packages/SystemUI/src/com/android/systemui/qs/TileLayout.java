@@ -59,6 +59,7 @@ public class TileLayout extends ViewGroup implements QSTileLayout {
         mRecords.add(tile);
         tile.tile.setListening(this, mListening);
         addView(tile.tileView);
+        tile.tileView.textVisibility();
     }
 
     @Override
@@ -80,24 +81,20 @@ public class TileLayout extends ViewGroup implements QSTileLayout {
         final Resources res = mContext.getResources();
         final ContentResolver resolver = mContext.getContentResolver();
 
-        final int columns;
-        if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
-            columns = Settings.System.getIntForUser(resolver,
-                    Settings.System.QS_COLUMNS_PORTRAIT, 4,
-                    UserHandle.USER_CURRENT);
+        if (Settings.System.getIntForUser(resolver,
+                Settings.System.QS_TILE_TITLE_VISIBILITY, 1,
+                UserHandle.USER_CURRENT) == 1) {
+            mCellHeight = mContext.getResources().getDimensionPixelSize(R.dimen.qs_tile_height);
         } else {
-            columns = Settings.System.getIntForUser(resolver,
-                    Settings.System.QS_COLUMNS_LANDSCAPE, 5,
-                    UserHandle.USER_CURRENT);
+            mCellHeight = mContext.getResources().getDimensionPixelSize(R.dimen.qs_tile_height_wo_label);
         }
-        mCellHeight = mContext.getResources().getDimensionPixelSize(R.dimen.qs_tile_height);
         mCellMargin = res.getDimensionPixelSize(R.dimen.qs_tile_margin);
         mCellMarginTop = res.getDimensionPixelSize(R.dimen.qs_tile_margin_top);
-        if (mColumns != columns) {
-            mColumns = columns;
-            requestLayout();
-            return true;
+
+        for (TileRecord record : mRecords) {
+            record.tileView.textVisibility();
         }
+        updateSettings();
         return false;
     }
 
@@ -154,5 +151,25 @@ public class TileLayout extends ViewGroup implements QSTileLayout {
 
     private int getColumnStart(int column) {
         return column * (mCellWidth + mCellMargin) + mCellMargin;
+    }
+
+    public void updateSettings() {
+        final Resources res = mContext.getResources();
+        final ContentResolver resolver = mContext.getContentResolver();
+        final int columns;
+        if (res.getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            columns = Settings.System.getIntForUser(resolver,
+                    Settings.System.QS_COLUMNS_PORTRAIT, 4,
+                    UserHandle.USER_CURRENT);
+        } else {
+            columns = Settings.System.getIntForUser(resolver,
+                    Settings.System.QS_COLUMNS_LANDSCAPE, 5,
+                    UserHandle.USER_CURRENT);
+        }
+
+        if (mColumns != columns) {
+            mColumns = columns;
+        }
+        requestLayout();
     }
 }

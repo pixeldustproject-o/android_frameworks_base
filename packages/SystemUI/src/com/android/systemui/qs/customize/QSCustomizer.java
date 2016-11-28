@@ -254,6 +254,9 @@ public class QSCustomizer extends LinearLayout implements OnMenuItemClickListene
             tiles.add(tile);
         }
         mTileAdapter.resetTileSpecs(mHost, tiles);
+        // reset QS tile title visibility
+        Settings.System.putInt(mContext.getContentResolver(),
+                Settings.System.QS_TILE_TITLE_VISIBILITY, 1);
     }
 
     private void setTileSpecs() {
