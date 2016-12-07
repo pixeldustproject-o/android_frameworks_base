@@ -17,4 +17,8 @@
 <resources>
 
     <color name="powersave_warning_color">#ff8e0101</color><!-- rgb 142 1 1 -->
+
+    <!-- Floating action button -->
+    <color name="fab_color">?android:attr/colorAccent</color>
+    <color name="floating_action_button_icon_color">@android:color/white</color>
 </resources>
