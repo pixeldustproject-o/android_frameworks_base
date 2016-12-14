@@ -133,4 +133,7 @@
   <java-symbol type="bool" name="config_multiColorBatteryLed" />
   <!-- LED pulse -->
   <java-symbol type="bool" name="config_ledCanPulse" />
+
+  <!-- Dynamic Navbar -->
+  <java-symbol type="color" name="input_method_navigation_guard_dynamic" />
 </resources>
