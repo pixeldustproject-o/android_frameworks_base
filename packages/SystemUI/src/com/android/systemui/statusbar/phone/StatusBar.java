@@ -482,6 +482,9 @@ public class StatusBar extends SystemUI implements DemoMode,
     // 4G instead of LTE
     private boolean mShow4G;
 
+    // Dynamic Navbar
+    private boolean mNavbarDynamic;
+
     // top bar
     protected KeyguardStatusBarView mKeyguardStatusBar;
     KeyguardStatusView mKeyguardStatusView;
@@ -6422,6 +6425,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.Secure.getUriFor(
                     Settings.Secure.FP_SWIPE_TO_DISMISS_NOTIFICATIONS))) {
                 setFpToDismissNotifications();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.NAVBAR_DYNAMIC))) {
+                updateNavbarDynamic();
             }
         }
 
@@ -6438,6 +6444,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateFingerprintQuickPulldown();
             updateShow4G();
             setFpToDismissNotifications();
+            updateNavbarDynamic();
         }
 
         private void updateShow4G() {
@@ -6445,6 +6452,14 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.SHOW_FOURG, 0, UserHandle.USER_CURRENT) == 1;
         }
 
+    }
+
+    private void updateNavbarDynamic() {
+        mNavbarDynamic = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.NAVBAR_DYNAMIC, 0, UserHandle.USER_CURRENT) == 1;
+        if (mNavigationBar != null && mNavigationBarView != null) {
+            mNavigationBar.updateNavbarOverlay(mContext.getResources());
+        }
     }
 
     private void updateFingerprintQuickPulldown() {
