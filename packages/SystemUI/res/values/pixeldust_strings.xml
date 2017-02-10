@@ -112,6 +112,9 @@
     <!-- Screenrecord Tile -->
     <string name="quick_settings_screenrecord">Screenrecord</string>
 
+    <!-- High Brightness Mode Tile -->
+    <string name="quick_settings_high_brightness">High brightness</string>
+
     <!-- OmniJaws QS Weather -->
     <string name="omnijaws_service_error">Error</string>
     <string name="omnijaws_service_unkown">No weather data</string>

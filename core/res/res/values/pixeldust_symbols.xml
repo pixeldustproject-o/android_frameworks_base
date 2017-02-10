@@ -91,6 +91,9 @@
   <!-- Screenrecord -->
   <java-symbol type="bool" name="config_enableScreenrecordChord" />
 
+  <!-- High Brightness Mode -->
+  <java-symbol type="bool" name="config_supportHighBrightness" />
+
   <!-- OmniJaws icon -->
   <java-symbol type="drawable" name="ic_qs_weather_default_on" />
 
