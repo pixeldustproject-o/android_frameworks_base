@@ -43,4 +43,7 @@
   <java-symbol type="bool" name="config_multiColorBatteryLed" />
   <!-- LED pulse -->
   <java-symbol type="bool" name="config_ledCanPulse" />
+
+  <!-- OmniJaws icon -->
+  <java-symbol type="drawable" name="ic_qs_weather_default_on" />
 </resources>
