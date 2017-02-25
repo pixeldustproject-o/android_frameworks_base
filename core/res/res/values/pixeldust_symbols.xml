@@ -90,4 +90,7 @@
 
   <!-- Screenrecord -->
   <java-symbol type="bool" name="config_enableScreenrecordChord" />
+
+  <!-- OmniJaws icon -->
+  <java-symbol type="drawable" name="ic_qs_weather_default_on" />
 </resources>
