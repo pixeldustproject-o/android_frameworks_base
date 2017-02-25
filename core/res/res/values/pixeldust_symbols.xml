@@ -106,4 +106,7 @@
   <java-symbol type="style" name="Animation.Toast.Translucent" />
   <java-symbol type="style" name="Animation.Toast.SlideRightLeft" />
   <java-symbol type="style" name="Animation.Toast.SlideLeftRight" />
+
+  <!-- OmniJaws icon -->
+  <java-symbol type="drawable" name="ic_qs_weather_default_on" />
 </resources>
