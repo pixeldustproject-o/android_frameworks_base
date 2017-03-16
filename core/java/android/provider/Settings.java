@@ -7979,6 +7979,13 @@ public final class Settings {
         public static final String LOCK_POWER_MENU_DISABLED = "lockscreen_power_menu_disabled";
 
         /**
+         * Disable expanding quick settings on secure lock screens
+         *
+         * @hide
+         */
+        public static final String LOCK_QS_DISABLED = "lockscreen_qs_disabled";
+
+        /**
          * Force authorize Substratum (or equivalent) frontend calling packages by ThemeInterfacer
          * The value is boolean (1 or 0).
          * @hide
