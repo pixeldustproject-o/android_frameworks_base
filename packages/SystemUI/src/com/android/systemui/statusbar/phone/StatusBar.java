@@ -503,6 +503,8 @@ public class StatusBar extends SystemUI implements DemoMode,
     ActivityManager mAm;
     boolean mLessBoringHeadsUp;
 
+    private boolean mFingerprintQuickPulldown;
+
     // the tracker view
     int mTrackingPosition; // the position of the top of the tracking view.
 
@@ -3198,8 +3200,13 @@ public class StatusBar extends SystemUI implements DemoMode,
         } else if (KeyEvent.KEYCODE_SYSTEM_NAVIGATION_DOWN == key) {
             mMetricsLogger.action(MetricsEvent.ACTION_SYSTEM_NAVIGATION_KEY_DOWN);
             if (mNotificationPanel.isFullyCollapsed()) {
-                mNotificationPanel.expand(true /* animate */);
-                mMetricsLogger.count(NotificationPanelView.COUNTER_PANEL_OPEN, 1);
+                if (mFingerprintQuickPulldown) {
+                    mNotificationPanel.expandWithQs();
+                    mMetricsLogger.count(NotificationPanelView.COUNTER_PANEL_OPEN_QS, 1);
+                } else {
+                    mNotificationPanel.expand(true /* animate */);
+                    mMetricsLogger.count(NotificationPanelView.COUNTER_PANEL_OPEN, 1);
+                }
             } else if (!mNotificationPanel.isInSettings() && !mNotificationPanel.isExpanding()){
                 mNotificationPanel.flingSettings(0 /* velocity */, true /* expand */);
                 mMetricsLogger.count(NotificationPanelView.COUNTER_PANEL_OPEN_QS, 1);
@@ -6309,6 +6316,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.FORCE_AMBIENT_FOR_MEDIA),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN_FP),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -6367,7 +6377,13 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateRecentsIconPack();
             updateRecentsMode();
             setForceAmbient();
+            updateFingerprintQuickPulldown();
         }
+    }
+
+    private void updateFingerprintQuickPulldown() {
+        mFingerprintQuickPulldown = Settings.System.getIntForUser(mContext.getContentResolver(),
+                Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN_FP, 0, UserHandle.USER_CURRENT) == 1;
     }
 
     private void updateDozeBrightness() {
