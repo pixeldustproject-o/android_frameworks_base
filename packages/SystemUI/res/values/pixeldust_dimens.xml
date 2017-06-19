@@ -14,7 +14,6 @@
      limitations under the License.
 -->
 <resources>
-    <dimen name="recents_task_view_header_lock_button_padding">48dp</dimen>
 
     <!-- OPA home dimens -->
     <dimen name="halo_inner_radius">10.0dip</dimen>
