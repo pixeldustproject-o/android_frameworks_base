@@ -31,4 +31,7 @@
   <!-- Hardware key binding -->
   <java-symbol type="integer" name="config_deviceHardwareKeys" />
 
+  <!-- sensor block per-package -->
+  <java-symbol type="array" name="config_blockPackagesSensorDrain" />
+
 </resources>
