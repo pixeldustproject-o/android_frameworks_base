@@ -330,7 +330,6 @@ public class KeyguardStatusView extends GridLayout implements
         final ContentResolver resolver = getContext().getContentResolver();
         final Resources res = getContext().getResources();
         View weatherPanel = findViewById(R.id.weather_panel);
-        TextView noWeatherInfo = (TextView) findViewById(R.id.no_weather_info_text);
 
         mShowWeather = Settings.System.getInt(resolver,
                 Settings.System.LOCK_SCREEN_SHOW_WEATHER, 0) == 1;
@@ -369,9 +368,6 @@ public class KeyguardStatusView extends GridLayout implements
                 (mShowWeather && !forceHideByNumberOfNotifications) ? View.VISIBLE : View.GONE);
         }
         if (forceHide) {
-            if (noWeatherInfo != null) {
-                noWeatherInfo.setVisibility(View.GONE);
-            }
             if (weatherPanel != null) {
                 weatherPanel.setVisibility(View.GONE);
             }
@@ -382,9 +378,6 @@ public class KeyguardStatusView extends GridLayout implements
                 mWeatherCity.setVisibility(View.GONE);
             }
         } else {
-            if (noWeatherInfo != null) {
-                noWeatherInfo.setVisibility(View.GONE);
-            }
             if (weatherPanel != null) {
                 weatherPanel.setVisibility(View.VISIBLE);
             }
@@ -400,9 +393,6 @@ public class KeyguardStatusView extends GridLayout implements
         mDateView.setTextColor(primaryTextColor);
         mClockView.setTextColor(primaryTextColor);
 
-        if (noWeatherInfo != null) {
-            noWeatherInfo.setTextColor(primaryTextColor);
-        }
         if (mWeatherCity != null) {
             mWeatherCity.setTextColor(primaryTextColor);
         }
