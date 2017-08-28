@@ -4312,6 +4312,16 @@ public final class Settings {
         public static final String VOLUME_ROCKER_WAKE = "volume_rocker_wake";
 
         /**
+         * @hide
+         */
+        public static final String GLOBAL_ACTIONS_LIST = "global_actions_list";
+
+        /**
+         * @hide
+         */
+         public static final String POWER_MENU_ANIMATIONS = "power_menu_animations";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -4488,6 +4498,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(VOLUME_LINK_NOTIFICATION);
             PRIVATE_SETTINGS.add(WAKE_WHEN_PLUGGED_OR_UNPLUGGED);
             PRIVATE_SETTINGS.add(VOLUME_BUTTON_MUSIC_CONTROL);
+            PRIVATE_SETTINGS.add(POWER_MENU_ANIMATIONS);
         }
 
         /**
@@ -7499,6 +7510,19 @@ public final class Settings {
          * @hide
          */
         public static final String NOTIFICATION_BADGING = "notification_badging";
+
+        // Omni additions start secure
+
+        /**
+         *
+         * @hide
+         */
+        public static final String GLOBAL_ACTION_DNAA = "global_action_dnaa";
+
+        /**
+         * @hide
+         */
+        public static final String ADVANCED_REBOOT = "advanced_reboot";
 
         /**
          * Comma separated list of QS tiles that have been auto-added already.
