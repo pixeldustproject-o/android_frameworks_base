@@ -25,4 +25,8 @@
   <!-- Power menu -->
   <java-symbol type="string" name="system_error_vendorprint" />
 
+  <!-- Button backlight -->
+  <java-symbol type="integer" name="config_buttonBrightnessSettingDefault" />
+  <java-symbol type="bool" name="config_deviceHasVariableButtonBrightness" />
+
 </resources>
