@@ -5859,6 +5859,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE),
+                    false, this, UserHandle.USER_ALL);
             update();
         }
 
@@ -5878,7 +5881,10 @@ public class StatusBar extends SystemUI implements DemoMode,
                             updateEmptyShadeView();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN))) {
-                setLockscreenDoubleTapToSleep();
+                setStatusBarWindowViewOptions();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.DOUBLE_TAP_SLEEP_GESTURE))) {
+                setStatusBarWindowViewOptions();
             }
         }
 
@@ -5886,13 +5892,13 @@ public class StatusBar extends SystemUI implements DemoMode,
             ContentResolver resolver = mContext.getContentResolver();
             boolean mShow4G = Settings.System.getIntForUser(resolver,
                     Settings.System.SHOW_FOURG, 0, UserHandle.USER_CURRENT) == 1;
-            setLockscreenDoubleTapToSleep();
+            setStatusBarWindowViewOptions();
         }
     }
 
-    private void setLockscreenDoubleTapToSleep() {
+    private void setStatusBarWindowViewOptions() {
         if (mStatusBarWindow != null) {
-            mStatusBarWindow.setLockscreenDoubleTapToSleep();
+            mStatusBarWindow.setStatusBarWindowViewOptions();
         }
     }
 
