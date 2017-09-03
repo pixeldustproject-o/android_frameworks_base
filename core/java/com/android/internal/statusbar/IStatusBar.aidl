@@ -126,4 +126,10 @@ oneway interface IStatusBar
     void handleSystemKey(in int key);
 
     void showShutdownUi(boolean isReboot, String reason);
+
+    /**
+     * ABC
+     */
+    void toggleCameraFlash();
+
 }
