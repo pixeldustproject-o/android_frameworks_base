@@ -42,4 +42,6 @@
         <item>menu_ime</item>
         <item>space</item>
     </string-array>
+
+    <string name="summary_empty" translatable="false"></string>
 </resources>
