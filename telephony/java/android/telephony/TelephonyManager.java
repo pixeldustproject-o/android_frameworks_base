@@ -5178,6 +5178,17 @@ public class TelephonyManager {
         }
     }
 
+    /**
+     * {@hide}
+     */
+    public void toggleLTE(boolean on) {
+        try {
+            getITelephony().toggleLTE(on);
+        } catch (RemoteException e) {
+            //Silently fail
+        }
+    }
+
     /** @hide */
     @SystemApi
     @RequiresPermission(android.Manifest.permission.CALL_PHONE)
