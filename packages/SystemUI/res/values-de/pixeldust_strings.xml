@@ -250,6 +250,11 @@
     <string name="quick_settings_compass_W">W</string>
     <string name="quick_settings_compass_NW">NW</string>
 
+    <!-- LTE QS Tile -->
+    <string name="qs_lte_label">LTE</string>
+    <string name="lte_on">LTE EIN </string>
+    <string name="lte_off">LTE AUS</string>
+
     <!-- Heads up snooze toast -->
     <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Pop-Up Benachrichtigungen sind für 1 Minute deaktiviert.</string>
     <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Pop-Up Benachrichtigungen sind für <xliff:g id="number">%d</xliff:g> Minuten deaktiviert.</string>
