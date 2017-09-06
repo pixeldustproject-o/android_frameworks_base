@@ -4188,6 +4188,12 @@ public final class Settings {
         public static final String SCREENSHOT_CROP_BEHAVIOR = "screenshot_crop_behavior";
 
         /**
+        * Whether to show QS panel footer warnings like for active VPN
+        * @hide
+        */
+       public static final String QS_FOOTER_WARNINGS = "qs_footer_warnings";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
