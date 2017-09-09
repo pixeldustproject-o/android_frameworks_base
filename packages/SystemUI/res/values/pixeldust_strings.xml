@@ -24,4 +24,7 @@
     <string name="lockscreen_tuner_activity">Lockscreen shortcuts</string>
     <string name="powernotif_tuner_activity">Power notifications</string>
     <string name="statusbar_items_title">Statusbar icon</string>
+
+    <!-- PiP Tile -->
+    <string name="quick_settings_pip_label">PiP</string>
 </resources>
