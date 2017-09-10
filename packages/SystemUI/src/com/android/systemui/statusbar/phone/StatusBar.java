@@ -50,6 +50,7 @@ import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentCallbacks2;
 import android.content.ComponentName;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -141,6 +142,7 @@ import com.android.internal.messages.nano.SystemMessageProto.SystemMessage;
 import com.android.internal.statusbar.IStatusBarService;
 import com.android.internal.statusbar.NotificationVisibility;
 import com.android.internal.statusbar.StatusBarIcon;
+import com.android.internal.util.pixeldust.DeviceUtils;
 import com.android.internal.util.NotificationMessagingUtil;
 import com.android.internal.widget.LockPatternUtils;
 import com.android.keyguard.KeyguardHostView.OnDismissAction;
@@ -529,10 +531,42 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     };
 
+    private class NavigationBarObserver extends ContentObserver {
+        NavigationBarObserver(Handler handler) {
+            super(handler);
+        }
+
+        void observe() {
+            mContext.getContentResolver().registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.NAVIGATION_BAR_SHOW),
+                    false, this, UserHandle.USER_ALL);
+            update();
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            update();
+        }
+
+        public void update() {
+            int showNavBar = Settings.System.getIntForUser(
+                    mContext.getContentResolver(), Settings.System.NAVIGATION_BAR_SHOW,
+                    -1, mCurrentUserId);
+            if (showNavBar != -1){
+                boolean showNavBarBool = showNavBar == 1;
+                if (showNavBarBool !=  mShowNavBar){
+                    updateNavigationBar();
+                }
+            }
+        }
+    }
+    private NavigationBarObserver mNavigationBarObserver = new NavigationBarObserver(mHandler);
+
     private int mInteractingWindows;
     private boolean mAutohideSuspended;
     private int mStatusBarMode;
     private int mMaxKeyguardNotifications;
+    private boolean mShowNavBar;
 
     private ViewMediatorCallback mKeyguardViewMediatorCallback;
     protected ScrimController mScrimController;
@@ -919,6 +953,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         // Lastly, call to the icon policy to install/update all the icons.
         mIconPolicy = new PhoneStatusBarPolicy(mContext, mIconController);
         mSettingsObserver.onChange(false); // set up
+
+        mNavigationBarObserver.observe();
 
         mHeadsUpObserver.onChange(true); // set up
         if (ENABLE_HEADS_UP) {
@@ -3696,6 +3732,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         updateNotificationShade();
         clearCurrentMediaNotification();
         setLockscreenUser(newUserId);
+        mNavigationBarObserver.update();
     }
 
     protected void setLockscreenUser(int newUserId) {
@@ -5199,6 +5236,27 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         private boolean shouldAnimateWakeup() {
             return mAnimateWakeup;
+        }
+    }
+
+    private void updateNavigationBar() {
+        mShowNavBar = DeviceUtils.deviceSupportNavigationBarForUser(mContext, mCurrentUserId);
+        if (DEBUG) Log.v(TAG, "updateNavigationBar=" + mShowNavBar);
+
+        if (mShowNavBar) {
+            if (mNavigationBarView == null) {
+                    mNavigationBarView =
+                        (NavigationBarView) View.inflate(mContext, R.layout.navigation_bar, null);
+
+                createNavigationBar();
+                checkBarModes();
+                notifyUiVisibilityChanged(mSystemUiVisibility);
+            }
+        } else {
+            if (mNavigationBarView != null){
+                mWindowManager.removeViewImmediate(mNavigationBarView);
+                mNavigationBarView = null;
+            }
         }
     }
 
