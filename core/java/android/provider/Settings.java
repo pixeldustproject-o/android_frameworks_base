@@ -7357,6 +7357,13 @@ public final class Settings {
         public static final String WAKE_GESTURE_ENABLED = "wake_gesture_enabled";
 
         /**
+         * Disable power menu on secure lock screens
+         *
+         * @hide
+         */
+        public static final String LOCK_POWER_MENU_DISABLED = "lockscreen_power_menu_disabled";
+
+        /**
          * Whether the device should doze if configured.
          * @hide
          */
