@@ -31,7 +31,6 @@
 
     <string name="summary_empty" translatable="false"></string>
 
-
     <!-- SysUI Tuner -->
     <string name="statusbar_icons_blacklist">Status bar icons</string>
     <string name="navbar_tuner_activity">Navigation bar buttons</string>
@@ -83,6 +82,7 @@
 
     <string name="status_bar_roaming">Roaming</string>
     <string name="status_bar_vpn">VPN</string>
+    <string name="status_bar_volte">VOLTE</string>
 
     <!-- Battery saver tile -->
     <string name="battery_saver_qs_tile_fully_charged">Fully Charged</string>
