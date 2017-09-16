@@ -23,6 +23,7 @@
     <string name="recents_app_killed">App killed</string>
     <string name="status_bar_roaming">Roaming</string>
     <string name="status_bar_vpn">VPN</string>
+    <string name="status_bar_volte">VOLTE</string>
 
     <!-- SysUI Tuner -->
     <string name="statusbar_icons_blacklist">Status bar icons</string>
