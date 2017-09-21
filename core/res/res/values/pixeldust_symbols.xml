@@ -113,4 +113,8 @@
   <java-symbol type="style" name="GlobalActionsAnimation" />
   <java-symbol type="style" name="GlobalActionsAnimationTop" />
   <java-symbol type="style" name="GlobalActionsAnimationEnter" />
+
+  <!-- DU animations -->
+  <java-symbol type="anim" name="du_app_in" />
+  <java-symbol type="anim" name="du_app_out" />
 </resources>
