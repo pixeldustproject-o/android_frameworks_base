@@ -253,5 +253,9 @@ public class QuickQSPanel extends QSPanel {
                         R.id.expand_indicator);
             }
         }
+
+        public boolean isShowTitles() {
+            return false;
+        }
     }
 }
