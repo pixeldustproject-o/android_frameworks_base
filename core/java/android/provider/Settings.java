@@ -4314,8 +4314,6 @@ public final class Settings {
         public static final String POWERMENU_SCREENSHOT = "powermenu_screenshot";
 
         /**
-         * Whether to display settings in the power menu
-         *
          * @hide
          */
         public static final String POWERMENU_SETTINGS = "powermenu_settings";
@@ -4420,6 +4418,13 @@ public final class Settings {
          * @hide
          */
         public static final String THREE_FINGER_GESTURE = "three_finger_gesture";
+
+        /**
+         * Indicates whether ANBI (Accidental navigation button interaction) is enabled.
+         *
+         * @hide
+         */
+        public static final String ANBI_ENABLED = "anbi_enabled";
 
         /**
          * Settings to backup. This is here so that it's in the same place as the settings
