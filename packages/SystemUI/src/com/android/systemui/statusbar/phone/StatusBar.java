@@ -1523,6 +1523,11 @@ public class StatusBar extends SystemUI implements DemoMode,
             }
         };
 
+        if (hideAnimatedList.isEmpty()) {
+            animationFinishAction.run();
+            return;
+        }
+
         // let's disable our normal animations
         mStackScroller.setDismissAllInProgress(true);
 
