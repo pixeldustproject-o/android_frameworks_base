@@ -134,4 +134,7 @@
 
     <!-- Navigation keys swaped layout -->
     <string name="config_navBarLayoutSwapped" translatable="false">left,recent;home;back,right</string>
+
+    <!-- Notification: Menu row: Snooze options: 1 hour option. [CHAR LIMIT=50]-->
+    <string name="snooze_option_24_hour">24 hours</string>
 </resources>
