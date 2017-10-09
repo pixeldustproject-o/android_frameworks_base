@@ -438,6 +438,9 @@ public class StatusBar extends SystemUI implements DemoMode,
     // QS DarkUI
     private boolean mDarkQS;
 
+    // Swap naviagtion keys
+    protected boolean mUseSwapKey = false;
+
     // top bar
     protected KeyguardStatusBarView mKeyguardStatusBar;
     KeyguardStatusView mKeyguardStatusView;
@@ -570,6 +573,22 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     }
     private NavigationBarObserver mNavigationBarObserver = new NavigationBarObserver(mHandler);
+
+    final private ContentObserver mSwapNavKeyObserver = new ContentObserver(mHandler) {
+        @Override
+        public void onChange(boolean selfChange) {
+            boolean wasUsing = mUseSwapKey;
+            mUseSwapKey = Settings.System.getIntForUser(
+                    mContext.getContentResolver(), Settings.System.SWAP_NAVIGATION_KEYS, 0,
+                    UserHandle.USER_CURRENT) != 0;
+            Log.d(TAG, "navbar is " + (mUseSwapKey ? "swapped" : "regular"));
+            if (wasUsing != mUseSwapKey) {
+                if (mNavigationBarView != null) {
+                    toggleNavigationBar();
+                }
+            }
+        }
+    };
 
     private int mInteractingWindows;
     private boolean mAutohideSuspended;
@@ -990,6 +1009,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         mScreenPinningRequest = new ScreenPinningRequest(mContext);
         mFalsingManager = FalsingManager.getInstance(mContext);
 
+        mSwapNavKeyObserver.onChange(true);
+
         Dependency.get(ActivityStarterDelegate.class).setActivityStarterImpl(this);
 
         mConfigurationListener = new ConfigurationListener() {
@@ -1266,6 +1287,9 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         // Private API call to make the shadows look better for Recents
         ThreadedRenderer.overrideProperty("ambientRatio", String.valueOf(1.5f));
+
+        // listen for SWAP_NAVIGATION_KEYS
+        resetSwapNavKeyObserver();
     }
 
     protected void createNavigationBar() {
@@ -3743,6 +3767,7 @@ public class StatusBar extends SystemUI implements DemoMode,
     public void userSwitched(int newUserId) {
         // Begin old BaseStatusBar.userSwitched
         setHeadsUpUser(newUserId);
+        resetSwapNavKeyObserver();
         // End old BaseStatusBar.userSwitched
         if (MULTIUSER_DEBUG) mNotificationPanelDebugText.setText("USER " + newUserId);
         animateCollapsePanels();
@@ -3762,6 +3787,14 @@ public class StatusBar extends SystemUI implements DemoMode,
         mLockscreenWallpaper.setCurrentUser(newUserId);
         mScrimController.setCurrentUser(newUserId);
         updateMediaMetaData(true, false);
+    }
+
+    private void resetSwapNavKeyObserver() {
+        mContext.getContentResolver().unregisterContentObserver(mSwapNavKeyObserver);
+        mSwapNavKeyObserver.onChange(false);
+        mContext.getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(Settings.System.SWAP_NAVIGATION_KEYS), true,
+                mSwapNavKeyObserver, mCurrentUserId);
     }
 
     /**
@@ -5279,6 +5312,24 @@ public class StatusBar extends SystemUI implements DemoMode,
             if (mNavigationBarView != null){
                 mWindowManager.removeViewImmediate(mNavigationBarView);
                 mNavigationBarView = null;
+            }
+        }
+    }
+
+    private void toggleNavigationBar() {
+        if (mNavigationBarView != null){
+            mWindowManager.removeViewImmediate(mNavigationBarView);
+            mNavigationBarView = null;
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+            }
+            if (mNavigationBarView == null) {
+                    mNavigationBarView =
+                        (NavigationBarView) View.inflate(mContext, R.layout.navigation_bar, null);
+                createNavigationBar();
+                checkBarModes();
+                notifyUiVisibilityChanged(mSystemUiVisibility);
             }
         }
     }
