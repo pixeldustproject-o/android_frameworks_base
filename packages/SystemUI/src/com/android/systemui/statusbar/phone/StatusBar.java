@@ -435,6 +435,9 @@ public class StatusBar extends SystemUI implements DemoMode,
     // 4G instead of LTE
     private boolean mShow4G;
 
+    // QS DarkUI
+    private boolean mDarkQS;
+
     // top bar
     protected KeyguardStatusBarView mKeyguardStatusBar;
     KeyguardStatusView mKeyguardStatusView;
@@ -5424,6 +5427,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.QS_STYLE_DARK),
+                    false, this, UserHandle.USER_ALL);
 
             update();
         }
@@ -5448,6 +5454,16 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN))) {
                 setLockscreenDoubleTapToSleep();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.QS_STYLE_DARK))) {
+                    mDarkQS = Settings.System.getIntForUser(
+                            mContext.getContentResolver(),
+                            Settings.System.QS_STYLE_DARK,
+                            0, UserHandle.USER_CURRENT) == 1;
+                            mCommandQueue.restartUI();
+                            updateRowStates();
+                            updateClearAll();
+                            updateEmptyShadeView();
             }
         }
 
@@ -5455,6 +5471,8 @@ public class StatusBar extends SystemUI implements DemoMode,
             ContentResolver resolver = mContext.getContentResolver();
             boolean mShow4G = Settings.System.getIntForUser(resolver,
                     Settings.System.SHOW_FOURG, 0, UserHandle.USER_CURRENT) == 1;
+            boolean mDarkQS = Settings.System.getIntForUser(resolver,
+                    Settings.System.QS_STYLE_DARK, 0, UserHandle.USER_CURRENT) == 1;
             setDoubleTapNavbar();
             setLockscreenDoubleTapToSleep();
         }
