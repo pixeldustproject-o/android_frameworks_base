@@ -50,4 +50,7 @@
 
     <!-- Proximity sensor dependent power button flashlight toggle -->
     <integer name="config_flashlightProximityTimeout">300</integer>
+
+    <!-- The duration (in milliseconds) of recent app screen animation. -->
+    <integer name="config_recentDefaultDur">150</integer>
 </resources>

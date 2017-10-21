@@ -123,4 +123,10 @@
 
   <!-- Proximity sensor dependent power button flashlight toggle -->
   <java-symbol type="integer" name="config_flashlightProximityTimeout" />
+
+  <!-- Slim recent app screen-->
+  <java-symbol type="integer" name="config_recentDefaultDur" />
+  <java-symbol type="style" name="Animation.SlimRecentScreen" />
+  <java-symbol type="anim" name="recent_screen_fade_out" />
+  <java-symbol type="anim" name="recent_enter" />
 </resources>
