@@ -18,6 +18,7 @@ package com.android.internal.util.pixeldust;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
@@ -38,6 +39,11 @@ public class ActionHelper {
     // General methods to retrieve the correct icon for the respective action.
     public static Drawable getButtonIconImage(Context context,
             String clickAction, String customIcon) {
+        return getActionIconImage(context, clickAction, customIcon, null);
+    }
+
+    public static Drawable getActionIconImage(Context context,
+            String clickAction, String customIcon, AbstractIconPackHelper iconPackHelper) {
         int resId = -1;
         Drawable d = null;
         PackageManager pm = context.getPackageManager();
@@ -64,6 +70,16 @@ public class ActionHelper {
                     }
                 }
                 if (d == null) {
+                    if (iconPackHelper != null && iconPackHelper.isIconPackLoaded()) {
+                        try {
+                            ActivityInfo info = pm.getActivityInfo(Intent.parseUri(clickAction, 0)
+                                    .getComponent(), 0);
+                            resId = iconPackHelper.getResourceIdForActivityIcon(info);
+                            if (resId > 0) {
+                                return iconPackHelper.getIconPackResources().getDrawable(resId);
+                            }
+                        } catch (PackageManager.NameNotFoundException e) {}
+                    }
                     d = pm.getActivityIcon(Intent.parseUri(clickAction, 0));
                 }
             } catch (NameNotFoundException e) {
