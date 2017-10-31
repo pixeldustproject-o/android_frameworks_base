@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--  Copyright (C) 2017 The Dirty Unicorns Project
+<!-- Copyright (C) 2017 The Pixel Dust Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -13,13 +13,6 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-        android:width="28.0dp"
-        android:height="28.0dp"
-        android:viewportWidth="96.0"
-        android:viewportHeight="96.0">
-
-    <path
-        android:fillColor="@color/icon_color_overview_dark"
-        android:pathData="M70,76H26c-3.3,0-6-2.7-6-6V26c0-3.3,2.7-6,6-6h44c3.3,0,6,2.7,6,6v44C76,73.3,73.3,76,70,76z" />
-</vector>
+<resources>
+    <color name="powersave_warning_color">#ff8e0101</color><!-- rgb 142 1 1 -->
+</resources>
