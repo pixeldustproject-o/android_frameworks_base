@@ -31,4 +31,7 @@
     <!-- Floating action button -->
     <color name="fab_color">?android:attr/colorAccent</color>
     <color name="floating_action_button_icon_color">@android:color/white</color>
+
+    <!-- Alert when screen off and charging if charge level becomes good -->
+    <color name="battery_level_good_color">#ff319111</color><!-- green -->
 </resources>
