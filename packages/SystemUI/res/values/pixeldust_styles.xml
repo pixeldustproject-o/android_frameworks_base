@@ -24,6 +24,14 @@
     <style name="ScreenshotEditorStyle" parent="@android:style/Theme.Material" >
     </style>
 
+    <!-- Pixel home animation -->
+    <style name="DotStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
     <!-- Custom Tuner Settings -->
     <dimen name="preference_no_icon_padding_start">24dp</dimen>
 
