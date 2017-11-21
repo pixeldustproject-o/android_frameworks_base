@@ -50,6 +50,11 @@ public class BatterySaverTile extends QSTileImpl<BooleanState> implements
     }
 
     @Override
+    public boolean isDualTarget() {
+        return true;
+    }
+
+    @Override
     public int getMetricsCategory() {
         return MetricsEvent.QS_BATTERY_TILE;
     }
@@ -70,7 +75,14 @@ public class BatterySaverTile extends QSTileImpl<BooleanState> implements
 
     @Override
     protected void handleClick() {
-        mBatteryController.setPowerSaveMode(!mPowerSave);
+        if (!mCharging) {
+            mBatteryController.setPowerSaveMode(!mPowerSave);
+        }
+    }
+
+    @Override
+    protected void handleSecondaryClick() {
+        showDetail(true);
     }
 
     @Override
@@ -80,10 +92,8 @@ public class BatterySaverTile extends QSTileImpl<BooleanState> implements
 
     @Override
     protected void handleUpdateState(BooleanState state, Object arg) {
-
-        state.state = mPluggedIn ? Tile.STATE_UNAVAILABLE
-                : mPowerSave ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;
-
+        state.dualTarget = true;
+        state.state = mPowerSave ? Tile.STATE_ACTIVE : Tile.STATE_INACTIVE;
         BatterySaverIcon bsi = new BatterySaverIcon();
         bsi.mState = state.state;
         state.icon = bsi;
