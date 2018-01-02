@@ -4729,14 +4729,6 @@ public final class Settings {
         public static final String NAVBAR_DYNAMIC = "navbar_dynamic";
 
         /**
-         * 0 - wallpaper based
-         * 1 - force light
-         * 2 - force dark
-         * @hide
-         */
-        public static final String SYSTEM_THEME_STYLE = "system_theme_style";
-
-        /**
          * Change fonts for the system lockscreen clock widget
          *
          * @hide
@@ -5022,7 +5014,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(TOAST_ICON);
             PRIVATE_SETTINGS.add(VOLUME_LINK_NOTIFICATION);
             PRIVATE_SETTINGS.add(POWER_MENU_ANIMATIONS);
-            PRIVATE_SETTINGS.add(SYSTEM_THEME_STYLE);
             PRIVATE_SETTINGS.add(NOTIFICATION_LIGHT_PULSE_DEFAULT_COLOR);
             PRIVATE_SETTINGS.add(NOTIFICATION_LIGHT_PULSE_DEFAULT_LED_ON);
             PRIVATE_SETTINGS.add(NOTIFICATION_LIGHT_PULSE_DEFAULT_LED_OFF);
@@ -8405,6 +8396,15 @@ public final class Settings {
          * @hide
          */
         public static final String LOCK_QS_DISABLED = "lockscreen_qs_disabled";
+
+        /**
+         * 0 - Automatic (Wallpaper based)
+         * 1 - Light
+         * 2 - Dark
+         * 3 - Black
+         * @hide
+         */
+        public static final String DEVICE_THEME = "device_theme";
 
         /**
          * Force authorize Substratum (or equivalent) frontend calling packages by ThemeInterfacer
