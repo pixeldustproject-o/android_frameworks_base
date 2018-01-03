@@ -3104,7 +3104,7 @@ class AlarmManagerService extends SystemService {
             qcNsrmExt.removeTriggeredUid(inflight.mUid);
 
             if (mBroadcastRefCount == 0) {
-                mHandler.obtainMessage(AlarmHandler.REPORT_ALARMS_ACTIVE, 0).sendToTarget();
+                mHandler.obtainMessage(AlarmHandler.REPORT_ALARMS_ACTIVE, 0, 0).sendToTarget();
                 if (mWakeLock.isHeld()) {
                     mWakeLock.release();
                 }
@@ -3263,7 +3263,7 @@ class AlarmManagerService extends SystemService {
                 if (!mWakeLock.isHeld()) {
                 mWakeLock.acquire();
                 }
-                mHandler.obtainMessage(AlarmHandler.REPORT_ALARMS_ACTIVE, 1).sendToTarget();
+                mHandler.obtainMessage(AlarmHandler.REPORT_ALARMS_ACTIVE, 1, 0).sendToTarget();
             }
             final InFlight inflight = new InFlight(AlarmManagerService.this,
                     alarm.operation, alarm.listener, alarm.workSource, alarm.uid,
