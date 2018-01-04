@@ -155,4 +155,8 @@
 
   <!-- back kill -->
   <java-symbol type="string" name="app_killed_message" />
+
+  <!-- Whether the device supports Smart Pixels -->
+  <java-symbol type="bool" name="config_enableSmartPixels" />
+
 </resources>
