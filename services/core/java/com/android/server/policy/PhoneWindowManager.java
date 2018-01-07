@@ -7066,7 +7066,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         IDreamManager dreamManager = getDreamManager();
         try {
             if (dreamManager != null && dreamManager.isDozing()) {
-                if (event != null && isVolumeKey(event)) {
+                if (event != null && isVolumeKey(event) && mVolumeMusicControl) {
                     return false;
                 }
             }
@@ -7090,7 +7090,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         // Send events to a dozing dream even if the screen is off since the dream
         // is in control of the state of the screen.
         try {
-            if (dreamManager != null && dreamManager.isDreaming()) {
+            if (dreamManager != null && dreamManager.isDreaming() && !dreamManager.isDozing()) {
                 return true;
             }
         } catch (RemoteException e) {
