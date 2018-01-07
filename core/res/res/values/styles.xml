@@ -1565,8 +1565,8 @@ please see styles_device_defaults.xml.
 
     <!-- @hide -->
     <style name="AutofillSaveAnimation">
-        <item name="android:windowEnterAnimation">@anim/slide_in_up</item>
-        <item name="android:windowExitAnimation">@anim/slide_out_down</item>
+        <item name="android:windowEnterAnimation">@anim/toast_enter</item>
+        <item name="android:windowExitAnimation">@anim/toast_exit</item>
     </style>
 
     <!-- The style for the container of media actions in a notification. -->
