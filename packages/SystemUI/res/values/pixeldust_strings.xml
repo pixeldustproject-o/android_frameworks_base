@@ -131,9 +131,6 @@
     <string name="omnijaws_package_not_available">OmniJaws not available</string>
     <string name="omnijaws_service_last_update">Last update:</string>
 
-    <!-- Navigation keys swaped layout -->
-    <string name="config_navBarLayoutSwapped" translatable="false">left,recent;home;back,right</string>
-
     <!-- Alert when screen off and charging if charge level becomes good -->
     <string name="alert_on_charged_level">You can disconnect the charger ( ">"<xliff:g id="percentage">%s</xliff:g> )</string>
     <string name="battery_level_good_title">Optimal battery level</string>

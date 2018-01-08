@@ -4321,12 +4321,6 @@ public final class Settings {
         public static final String OMNIJAWS_WEATHER_ICON_PACK = "omnijaws_weather_icon_pack";
 
         /**
-         * Whether to swap the back and recent keys
-         * @hide
-         */
-        public static final String SWAP_NAVIGATION_KEYS = "swap_navigation_keys";
-
-        /**
          * Boolean value whether to link ringtone and notification volume
          *
          * @hide
@@ -4653,7 +4647,6 @@ public final class Settings {
             PRIVATE_SETTINGS.add(QS_LAYOUT_COLUMNS_LANDSCAPE);
             PRIVATE_SETTINGS.add(QS_TILE_TITLE_VISIBILITY);
             PRIVATE_SETTINGS.add(QS_LAYOUT_ROWS);
-            PRIVATE_SETTINGS.add(SWAP_NAVIGATION_KEYS);
             PRIVATE_SETTINGS.add(VOLUME_LINK_NOTIFICATION);
             PRIVATE_SETTINGS.add(WAKE_WHEN_PLUGGED_OR_UNPLUGGED);
             PRIVATE_SETTINGS.add(VOLUME_BUTTON_MUSIC_CONTROL);

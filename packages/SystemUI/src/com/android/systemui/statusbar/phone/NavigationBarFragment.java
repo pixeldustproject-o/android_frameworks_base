@@ -127,9 +127,6 @@ public class NavigationBarFragment extends Fragment implements Callbacks {
 
     public boolean mHomeBlockedThisTouch;
 
-    // Enable swapped naviagtion keys.
-    protected boolean mUseSwapKey = false;
-
     // ----- Fragment Lifecycle Callbacks -----
 
     @Override
@@ -150,9 +147,6 @@ public class NavigationBarFragment extends Fragment implements Callbacks {
         mContentResolver.registerContentObserver(Settings.Secure.getUriFor(
                 Settings.Secure.ACCESSIBILITY_DISPLAY_MAGNIFICATION_NAVBAR_ENABLED), false,
                 mMagnificationObserver, UserHandle.USER_ALL);
-        mUseSwapKey = Settings.System.getIntForUser(
-                getContext().getContentResolver(), Settings.System.SWAP_NAVIGATION_KEYS, 0,
-                UserHandle.USER_CURRENT) != 0;
 
         if (savedInstanceState != null) {
             mDisabledFlags1 = savedInstanceState.getInt(EXTRA_DISABLE_STATE, 0);
@@ -387,7 +381,6 @@ public class NavigationBarFragment extends Fragment implements Callbacks {
     }
 
     private void prepareNavigationBarView() {
-        mNavigationBarView.setSwapKeys(mUseSwapKey);
         mNavigationBarView.reorient();
 
         ButtonDispatcher recentsButton = mNavigationBarView.getRecentsButton();
