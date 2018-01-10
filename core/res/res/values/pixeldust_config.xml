@@ -43,4 +43,7 @@
          For example, a device with Home, Back and Menu keys would set this
          config to 7. -->
     <integer name="config_deviceHardwareKeys">64</integer>
+
+    <!-- Proximity sensor dependent power button flashlight toggle -->
+    <integer name="config_flashlightProximityTimeout">300</integer>
 </resources>
