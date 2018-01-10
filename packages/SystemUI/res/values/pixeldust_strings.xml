@@ -276,4 +276,7 @@
     <string name="quick_settings_quick_pull_down_name">Quick Settings quick pull-down</string>
     <string name="quick_settings_quick_pull_down_summary">Automatically expand Quick Settings when pulling from the side of the screen</string>
 
+    <!-- Google SystemUI -->
+    <string name="config_systemUIFactoryComponent">com.android.systemui.SystemUIFactory</string>
+
 </resources>
