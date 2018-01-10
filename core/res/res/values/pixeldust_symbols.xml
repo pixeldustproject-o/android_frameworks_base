@@ -120,4 +120,7 @@
 
   <!-- Hardware key binding -->
   <java-symbol type="integer" name="config_deviceHardwareKeys" />
+
+  <!-- Proximity sensor dependent power button flashlight toggle -->
+  <java-symbol type="integer" name="config_flashlightProximityTimeout" />
 </resources>
