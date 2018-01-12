@@ -1754,4 +1754,9 @@ public interface WindowManagerPolicy {
      * @return true if ready; false otherwise.
      */
     boolean canDismissBootAnimation();
+
+    /**
+     * Call screen record from WindowManager.
+     */
+    public void screenRecordAction(int mode);
 }
