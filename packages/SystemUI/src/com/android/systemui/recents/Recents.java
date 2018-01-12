@@ -92,6 +92,8 @@ public class Recents extends SystemUI
 
     public final static Set<Task> sLockedTasks = new HashSet<>();
 
+    public static boolean mUseSlimRecents = false;
+
     // Purely for experimentation
     private final static String RECENTS_OVERRIDE_SYSPROP_KEY = "persist.recents_override_pkg";
     private final static String ACTION_SHOW_RECENTS = "com.android.systemui.recents.ACTION_SHOW";
@@ -239,6 +241,7 @@ public class Recents extends SystemUI
         if (sSystemServicesProxy.isSystemUser(processUser)) {
             // For the system user, initialize an instance of the interface that we can pass to the
             // secondary user
+            getComponent(CommandQueue.class).addCallbacks(this);
             mSystemToUserCallbacks = new RecentsSystemUser(mContext, mImpl);
         } else {
             // For the secondary user, bind to the primary user's service to get a persistent
@@ -843,17 +846,5 @@ public class Recents extends SystemUI
     public void dump(FileDescriptor fd, PrintWriter pw, String[] args) {
         pw.println("Recents");
         pw.println("  currentUserId=" + SystemServicesProxy.getInstance(mContext).getCurrentUser());
-    }
-
-    public void removeSbCallbacks() {
-        getComponent(CommandQueue.class).removeCallbacks(this);
-        // there are other callbacks registered (like with RecentsImplProxy binder for non sys users)
-        // to be removed but for now let's use the easiest way and just block main calls in RecentsImpl
-        mImpl.mUseSlimRecents = true;
-    }
-
-    public void addSbCallbacks() {
-        getComponent(CommandQueue.class).addCallbacks(this);
-        mImpl.mUseSlimRecents = false;
     }
 }
