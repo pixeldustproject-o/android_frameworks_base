@@ -164,7 +164,8 @@ class SaveImageInBackgroundTask extends AsyncTask<Void, Void, Void> {
         if (info != null) {
             CharSequence appName = pm.getApplicationLabel(info.applicationInfo);
             if (appName != null) {
-                String appNameString = appName.toString().replaceAll("\\s+", "_");
+                // replace all spaces and special chars with an underscore
+                String appNameString = appName.toString().replaceAll("[\\\\/:*?\"<>|]", "_");
                 mImageFileName = String.format(SCREENSHOT_FILE_NAME_TEMPLATE_APPNAME, appNameString, imageDate);
             }
         }
