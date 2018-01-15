@@ -4411,6 +4411,7 @@ public final class Settings {
          * 2 - force dark
          * 3 - force black
          * 4 - force shishudreams
+         * 5 - force shishunights
          * @hide
          */
         public static final String SYSTEM_UI_THEME = "system_ui_theme";
