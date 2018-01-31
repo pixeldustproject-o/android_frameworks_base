@@ -173,7 +173,7 @@ public class OmniJawsClient {
     public Intent getSettingsIntent() {
         if (isOmniJawsServiceInstalled()) {
             Intent settings = new Intent(Intent.ACTION_MAIN)
-                    .setClassName("com.android.settings", "com.android.settings.Settings$LockScreenWeatherSettingsActivity");
+                    .setClassName("org.omnirom.omnijaws", "org.omnirom.omnijaws.SettingsActivityService");
             return settings;
         }
         return null;
