@@ -20,9 +20,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.PowerManager;
+import android.os.RemoteException;
+import android.os.ServiceManager;
 
 import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto.MetricsEvent;
+import com.android.internal.statusbar.IStatusBarService;
 import com.android.systemui.R;
 import com.android.systemui.plugins.qs.QSTile.BooleanState;
 import com.android.systemui.qs.QSHost;
@@ -31,6 +34,7 @@ import com.android.systemui.qs.tileimpl.QSTileImpl;
 public class RebootTile extends QSTileImpl<BooleanState> {
 
     private boolean mRebootToRecovery = false;
+    private IStatusBarService mBarService;
 
     public RebootTile(QSHost host) {
         super(host);
@@ -50,12 +54,15 @@ public class RebootTile extends QSTileImpl<BooleanState> {
     @Override
     protected void handleLongClick() {
         mHost.collapsePanels();
+        mBarService = IStatusBarService.Stub.asInterface(
+                ServiceManager.getService(Context.STATUS_BAR_SERVICE));
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                PowerManager pm =
-                    (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
-                pm.reboot(mRebootToRecovery ? "recovery" : "");
+                try {
+                    mBarService.reboot(false, mRebootToRecovery ? PowerManager.REBOOT_RECOVERY : "");
+                } catch (RemoteException e) {
+                }
             }
         }, 500);
     }
