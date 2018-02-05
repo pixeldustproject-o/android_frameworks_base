@@ -4851,6 +4851,12 @@ public final class Settings {
         public static final String SCREENSHOT_EDIT_USER_APP = "screenshot_edit_user_app";
 
         /**
+         * Current theme overlay
+         * @hide
+         */
+        public static final String SYSTEM_THEME_CURRENT_OVERLAY = "system_theme_current_overlay";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
