@@ -4408,14 +4408,6 @@ public final class Settings {
         public static final String SLIM_RECENTS_BLACKLIST_VALUES = "slim_recents_blacklist_values";
 
         /**
-         * 0 - wallpaper based
-         * 1 - force light
-         * 2 - force dark
-         * @hide
-         */
-        public static final String SYSTEM_UI_THEME = "system_ui_theme";
-
-        /**
          * Wheter to play notification sound and vibration if screen is ON
          * 0 - never
          * 1 - always
