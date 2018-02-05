@@ -5184,6 +5184,15 @@ public class StatusBar extends SystemUI implements DemoMode,
             mStatusBarWindowManager.setKeyguardDark(useDarkText);
         }
     }
+    
+    private void updateThemeAndReinflate(){
+        updateTheme();
+        mHandler.postDelayed(() -> {
+            if (mStatusBarView != null) {
+                reinflateViews();
+            }
+        }, 1000);
+    }
 
     // Switches theme accent from to another or back to stock
     public void updateAccents() {
@@ -6437,6 +6446,9 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.STATUS_BAR_BATTERY_STYLE),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.SYSTEM_THEME_CURRENT_OVERLAY),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -6474,8 +6486,9 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.USE_SLIM_RECENTS))) {
                 updateRecentsMode();
             } else if (uri.equals(Settings.System.getUriFor(
-                    Settings.System.SYSTEM_UI_THEME))) {
-                updateTheme();
+                    Settings.System.SYSTEM_UI_THEME)) || uri.equals(Settings.System.getUriFor(
+                    Settings.System.SYSTEM_THEME_CURRENT_OVERLAY))) {
+                updateThemeAndReinflate();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.ACCENT_PICKER))) {
                 // Unload the accents and update the accent only when the user asks.
