@@ -100,6 +100,8 @@ public class QSFragment extends Fragment implements QS {
             mQSCustomizer.setEditLocation(x, y);
             mQSCustomizer.restoreInstanceState(savedInstanceState);
         }
+
+        mQSPanel.updateSettings();
     }
 
     @Override
@@ -130,6 +132,10 @@ public class QSFragment extends Fragment implements QS {
 
     @Override
     public View getHeader() {
+        return mHeader;
+    }
+
+    public QuickStatusBarHeader getQuickStatusBarHeader() {
         return mHeader;
     }
 
@@ -346,6 +352,10 @@ public class QSFragment extends Fragment implements QS {
         // Let the panel know the position changed and it needs to update where notifications
         // and whatnot are.
         mPanelView.onQsHeightChanged();
+        // when we come back from custmize update
+        if (!mQSCustomizer.isCustomizing()) {
+            mQSPanel.updateSettings();
+        }
     }
 
     /**

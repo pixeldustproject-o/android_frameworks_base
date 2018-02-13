@@ -56,4 +56,7 @@
 
     <dimen name="crop_buttons">48dp</dimen>
     <dimen name="crop_buttons_inlet">32dp</dimen>
+    <dimen name="signal_cluster_no_battery_padding">0dp</dimen>
+    <dimen name="battery_level_padding_start_no_icon">0dp</dimen>
+
 </resources>
