@@ -208,6 +208,7 @@ import com.android.systemui.plugins.statusbar.NotificationSwipeActionHelper.Snoo
 import com.android.systemui.qs.QSFragment;
 import com.android.systemui.qs.QSPanel;
 import com.android.systemui.qs.QSTileHost;
+import com.android.systemui.qs.QuickStatusBarHeader;
 import com.android.systemui.qs.car.CarQSFragment;
 import com.android.systemui.recents.Recents;
 import com.android.systemui.recents.ScreenPinningRequest;
@@ -490,6 +491,8 @@ public class StatusBar extends SystemUI implements DemoMode,
     KeyguardStatusView mKeyguardStatusView;
     boolean mLeaveOpenOnKeyguardHide;
     KeyguardIndicationController mKeyguardIndicationController;
+
+    private QuickStatusBarHeader mQuickStatusBarHeader;
 
     // Keyguard is going away soon.
     private boolean mKeyguardGoingAway;
@@ -1334,6 +1337,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                     mQSPanel = ((QSFragment) qs).getQsPanel();
                     mQSPanel.setBrightnessMirror(mBrightnessMirrorController);
                     mKeyguardStatusBar.setQSPanel(mQSPanel);
+                    mQuickStatusBarHeader = ((QSFragment) qs).getQsHeader();
                 }
             });
         }
@@ -6425,6 +6429,12 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.HEADS_UP_WHITELIST_VALUES),
                     false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.SHOW_BATTERY_PERCENT),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.Secure.STATUS_BAR_BATTERY_STYLE),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -6486,6 +6496,11 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.NAVBAR_DYNAMIC))) {
                 updateNavbarDynamic();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.SHOW_BATTERY_PERCENT))
+                    || uri.equals(Settings.Secure.getUriFor(
+                    Settings.Secure.STATUS_BAR_BATTERY_STYLE))) {
+                updateBatterySettings();
             }
         }
 
@@ -6510,6 +6525,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             updateShow4G();
             setFpToDismissNotifications();
             updateNavbarDynamic();
+            updateBatterySettings();
         }
 
         private void updateShow4G() {
@@ -6524,6 +6540,18 @@ public class StatusBar extends SystemUI implements DemoMode,
                 Settings.System.NAVBAR_DYNAMIC, 0, UserHandle.USER_CURRENT) == 1;
         if (mNavigationBar != null && mNavigationBarView != null) {
             mNavigationBar.updateNavbarOverlay(mContext.getResources());
+        }
+    }
+
+    private void updateBatterySettings() {
+        if (mStatusBarView != null) {
+            mStatusBarView.updateBatterySettings();
+        }
+        if (mKeyguardStatusBar != null) {
+            mKeyguardStatusBar.updateBatterySettings();
+        }
+        if (mQuickStatusBarHeader != null) {
+            mQuickStatusBarHeader.updateBatterySettings();
         }
     }
 
