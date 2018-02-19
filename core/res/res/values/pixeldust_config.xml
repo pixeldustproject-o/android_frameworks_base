@@ -74,4 +74,7 @@
          pulsating and RGB control would set this config to 75. -->
     <integer name="config_deviceLightCapabilities">8</integer>
 
+    <!-- In call notification vibration strength -->
+    <integer name="config_in_call_notification_vibration_strength">30</integer>
+
 </resources>
