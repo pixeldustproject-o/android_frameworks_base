@@ -56,5 +56,6 @@
 
     <dimen name="crop_buttons">48dp</dimen>
     <dimen name="crop_buttons_inlet">32dp</dimen>
+    <dimen name="status_bar_left_clock_end_padding">5dp</dimen>
 
 </resources>

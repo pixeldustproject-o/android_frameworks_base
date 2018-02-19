@@ -109,6 +109,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         @Override
         public void onChange(boolean selfChange) {
             updateSettings(true);
+            mStatusBarComponent.updateQsbhClock();
             mStatusBarComponent.updateBatterySettings();
         }
     }
