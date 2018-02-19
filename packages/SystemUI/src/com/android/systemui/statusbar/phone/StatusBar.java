@@ -6812,6 +6812,12 @@ public class StatusBar extends SystemUI implements DemoMode,
                 Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN_FP, 0, UserHandle.USER_CURRENT) == 1;
     }
 
+    public void updateQsbhClock() {
+        if (mQuickStatusBarHeader != null) {
+            mQuickStatusBarHeader.updateQsbhClock();
+        }
+    }
+
     private void updateDozeBrightness() {
         int defaultDozeBrightness = mContext.getResources().getInteger(
                 com.android.internal.R.integer.config_screenBrightnessDoze);
