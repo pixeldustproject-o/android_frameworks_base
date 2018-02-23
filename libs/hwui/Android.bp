@@ -7,16 +7,6 @@ cc_defaults {
         //"hwui_compile_for_perf",
     ],
 
-    arch: {
-        arm: {
-            instruction_set: "arm",
-        },
-    },
-
-    lto: {
-        thin: true,
-    },
-
     cflags: [
         "-DEGL_EGLEXT_PROTOTYPES",
         "-DGL_GLEXT_PROTOTYPES",
