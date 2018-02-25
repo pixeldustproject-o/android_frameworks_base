@@ -20,4 +20,7 @@
     <!-- Dynamic Navbar -->
     <color name="input_method_navigation_guard_dynamic">@android:color/transparent</color>
 
+    <!-- Notification info -->
+    <color name="notification_info_button_text">@color/accent_device_default_light</color>
+
 </resources>
