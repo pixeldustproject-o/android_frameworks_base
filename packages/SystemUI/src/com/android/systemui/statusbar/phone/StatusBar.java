@@ -450,6 +450,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
     protected StatusBarWindowView mStatusBarWindow;
     protected PhoneStatusBarView mStatusBarView;
+    protected CollapsedStatusBarFragment mStatusBarFragment;
     private int mStatusBarWindowState = WINDOW_STATE_SHOWING;
     protected StatusBarWindowManager mStatusBarWindowManager;
     protected UnlockMethodCache mUnlockMethodCache;
@@ -1174,6 +1175,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                 .addTagListener(CollapsedStatusBarFragment.TAG, (tag, fragment) -> {
                     CollapsedStatusBarFragment statusBarFragment =
                             (CollapsedStatusBarFragment) fragment;
+                    mStatusBarFragment = statusBarFragment;
                     statusBarFragment.initNotificationIconArea(mNotificationIconAreaController);
                     mStatusBarView = (PhoneStatusBarView) fragment.getView();
                     mStatusBarView.setBar(this);
@@ -6418,6 +6420,28 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.STATUS_BAR_BATTERY_STYLE),
                     false, this, UserHandle.USER_ALL);
+            //clock settings
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_CLOCK),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUSBAR_CLOCK_STYLE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_CLOCK_SECONDS),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUSBAR_CLOCK_AM_PM_STYLE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUSBAR_CLOCK_DATE_DISPLAY),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUSBAR_CLOCK_DATE_STYLE),
+                    false, this, UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.STATUSBAR_CLOCK_DATE_FORMAT),
+                    false, this, UserHandle.USER_ALL);
         }
 
         @Override
@@ -6484,6 +6508,21 @@ public class StatusBar extends SystemUI implements DemoMode,
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.Secure.DEVICE_THEME))) {
                 updateTheme();
+            } else if (uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_CLOCK))
+                    || uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUSBAR_CLOCK_STYLE))
+                    || uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUS_BAR_CLOCK_SECONDS))
+                    || uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUSBAR_CLOCK_AM_PM_STYLE))
+                    || uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUSBAR_CLOCK_DATE_DISPLAY))
+                    || uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUSBAR_CLOCK_DATE_STYLE))
+                    || uri.equals(Settings.System.getUriFor(
+                    Settings.System.STATUSBAR_CLOCK_DATE_FORMAT))) {
+                updateClockSettings();
             }
         }
 
@@ -6530,6 +6569,13 @@ public class StatusBar extends SystemUI implements DemoMode,
             mQuickStatusBarHeader.updateBatterySettings();
         }
 
+    }
+
+    public void updateClockSettings() {
+        if (mStatusBarFragment != null) {
+            mStatusBarFragment.updateSettings(true);
+            mStatusBarFragment.updateClockStyle(true);
+        }
     }
 
     private void updateNavbarDynamic() {

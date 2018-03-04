@@ -396,7 +396,7 @@ public class CollapsedStatusBarFragment extends Fragment implements CommandQueue
         ((Clock)mLeftClock).updateSettings();
     }
 
-    private void updateClockStyle(boolean animate) {
+    protected void updateClockStyle(boolean animate) {
         if (mClockStyle == 0 || mClockStyle == 1) {
             animateHide(mLeftClock, animate, false);
         } else {
