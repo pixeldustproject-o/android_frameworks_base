@@ -33,4 +33,7 @@
     <color name="screen_pinning_button_text">@android:color/white</color>
     <color name="screen_pinning_bg_circ_color">#40FFFFFF</color>
     <color name="screen_pinning_nav_icon_hightlight_outer_color">@android:color/white</color>
+
+    <!-- Slim Recents icons management -->
+    <color name="legacy_icon_background">#FFFFFF</color>
 </resources>
