@@ -4878,6 +4878,12 @@ public final class Settings {
         public static final String SHOW_LOCKSCREEN_ALARM = "show_lockscreen_alarm";
 
         /**
+        * Whether to show weather info on ambient display
+        * @hide
+        */
+        public static final String AMBIENT_DISPLAY_WEATHER = "ambient_display_weather";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
