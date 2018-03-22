@@ -4165,18 +4165,6 @@ public final class Settings {
         public static final String POCKET_JUDGE = "pocket_judge";
 
         /**
-         * Use latest screen-on brightness value for Ambient Display
-         * @hide
-         */
-        public static final String AMBIENT_DOZE_AUTO_BRIGHTNESS = "ambient_doze_auto_brightness";
-
-        /**
-         * Use latest screen-on brightness value for Ambient Display
-         * @hide
-         */
-        public static final String LAST_DOZE_AUTO_BRIGHTNESS = "last_doze_auto_brightness";
-
-        /**
          * Whether to show a notification when the battery is charged at the set level and screen is off
          * @hide
          */
