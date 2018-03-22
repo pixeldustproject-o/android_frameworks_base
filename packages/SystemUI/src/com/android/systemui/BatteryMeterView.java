@@ -79,6 +79,7 @@ public class BatteryMeterView extends LinearLayout implements
     private int mStyle = BatteryMeterDrawableBase.BATTERY_STYLE_PORTRAIT;
     private int mShowPercentText;
     private boolean mCharging;
+    private boolean mPowerSave;
 
     private final int mEndPadding;
 
@@ -90,8 +91,6 @@ public class BatteryMeterView extends LinearLayout implements
     private int mClockStyle = STYLE_CLOCK_RIGHT;
     public static final int STYLE_CLOCK_RIGHT = 0;
     public static final int STYLE_CLOCK_LEFT = 1;
-
-    private boolean mPowerSave;
 
     public BatteryMeterView(Context context) {
         this(context, null, 0);
@@ -201,9 +200,9 @@ public class BatteryMeterView extends LinearLayout implements
     public void onBatteryLevelChanged(int level, boolean pluggedIn, boolean charging) {
 
         if (isCircleBattery()
-            || mStyle == BatteryMeterDrawableBase.BATTERY_STYLE_PORTRAIT {
+            || mStyle == BatteryMeterDrawableBase.BATTERY_STYLE_PORTRAIT) {
             setForceShowPercent(pluggedIn);
-            updateShowPercent();
+            // mDrawable.setCharging(pluggedIn) will invalidate the view
         }
         mCharging = pluggedIn;
         mDrawable.setBatteryLevel(level);
