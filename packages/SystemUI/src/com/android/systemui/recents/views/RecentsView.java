@@ -139,8 +139,8 @@ public class RecentsView extends FrameLayout {
     private final int mStackButtonShadowColor;
     private SettingsObserver mSettingsObserver;
     private boolean showClearAllRecents;
-    View mFloatingButton;
-    View mClearRecents;
+    private View mFloatingButton;
+    private ImageButton mClearRecents;
     private int clearRecentsLocation;
 
     private boolean mAwaitingFirstLayout = true;
@@ -563,9 +563,6 @@ public class RecentsView extends FrameLayout {
         setMeasuredDimension(width, height);
 
         if (mFloatingButton != null && showClearAllRecents) {
-            clearRecentsLocation = Settings.System.getIntForUser(
-                mContext.getContentResolver(), Settings.System.RECENTS_CLEAR_ALL_LOCATION,
-                3, UserHandle.USER_CURRENT);
             FrameLayout.LayoutParams params = (FrameLayout.LayoutParams)
                     mFloatingButton.getLayoutParams();
             boolean isLandscape = mContext.getResources().getConfiguration().orientation
@@ -1229,6 +1226,23 @@ public class RecentsView extends FrameLayout {
         }
     }
 
+    private static boolean isBrightColor(int color) {
+        if (color == -3) {
+            return false;
+        } else if (color == Color.TRANSPARENT) {
+            return false;
+        } else if (color == Color.WHITE) {
+            return true;
+        }
+        int[] rgb = { Color.red(color), Color.green(color), Color.blue(color) };
+        int brightness = (int) Math.sqrt(rgb[0] * rgb[0] * .241 + rgb[1]
+            * rgb[1] * .691 + rgb[2] * rgb[2] * .068);
+        if (brightness >= 190) {
+            return true;
+        }
+        return false;
+    }
+
     /**
     * Extended SimpleOnScaleGestureListener to take
     * care of a pinch to zoom out gesture. This class
@@ -1369,11 +1383,19 @@ public class RecentsView extends FrameLayout {
              update();
          }
 
-   public void update() {
-        mFloatingButton = ((View)getParent()).findViewById(R.id.floating_action_button);
-        mClearRecents = (ImageButton) ((View)getParent()).findViewById(R.id.clear_recents);
-        showClearAllRecents = Settings.System.getIntForUser(mContext.getContentResolver(),
-                Settings.System.SHOW_CLEAR_ALL_RECENTS, 1, UserHandle.USER_CURRENT) != 0;
+         public void update() {
+             mFloatingButton = ((View)getParent()).findViewById(R.id.floating_action_button);
+             mClearRecents = (ImageButton) ((View)getParent()).findViewById(R.id.clear_recents);
+             // if the fab background is light force black tint instead of white
+             if (isBrightColor(getResources().getColor(R.color.fab_color))) {
+                mClearRecents.getDrawable().setTint(getResources().getColor(
+                        R.color.floating_action_button_icon_color_light));
+             }
+             showClearAllRecents = Settings.System.getIntForUser(mContext.getContentResolver(),
+                     Settings.System.SHOW_CLEAR_ALL_RECENTS, 1, UserHandle.USER_CURRENT) != 0;
+             clearRecentsLocation = Settings.System.getIntForUser(
+                     mContext.getContentResolver(), Settings.System.RECENTS_CLEAR_ALL_LOCATION,
+                     3, UserHandle.USER_CURRENT);
          }
      }
 }
