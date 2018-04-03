@@ -21,6 +21,9 @@ import static android.Manifest.permission.SYSTEM_ALERT_WINDOW;
 import static android.app.ActivityManager.StackId.DOCKED_STACK_ID;
 import static android.app.ActivityManager.StackId.FREEFORM_WORKSPACE_STACK_ID;
 import static android.app.ActivityManager.StackId.HOME_STACK_ID;
+import static android.app.ActivityManager.LOCK_TASK_MODE_LOCKED;
+import static android.app.ActivityManager.LOCK_TASK_MODE_NONE;
+import static android.app.ActivityManager.LOCK_TASK_MODE_PINNED;
 import static android.app.AppOpsManager.OP_SYSTEM_ALERT_WINDOW;
 import static android.app.AppOpsManager.OP_TOAST_WINDOW;
 import static android.content.Context.CONTEXT_RESTRICTED;
@@ -124,13 +127,15 @@ import static android.view.WindowManagerPolicy.WindowManagerFuncs.LID_OPEN;
 
 import android.Manifest;
 import android.annotation.Nullable;
-import android.Manifest;
+import android.app.Activity;
 import android.app.ActivityManager;
 import android.app.ActivityManager.StackId;
 import android.app.ActivityManagerInternal;
 import android.app.ActivityManagerInternal.SleepToken;
+import android.app.ActivityManager.RunningAppProcessInfo;
 import android.app.ActivityThread;
 import android.app.AppOpsManager;
+import android.app.IActivityManager;
 import android.app.IUiModeManager;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
@@ -240,6 +245,7 @@ import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
 import android.view.autofill.AutofillManagerInternal;
 import android.view.inputmethod.InputMethodManagerInternal;
+import android.widget.Toast;
 
 import com.android.internal.R;
 import com.android.internal.annotations.GuardedBy;
@@ -385,6 +391,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             "com.android.systemui.screenshot.TakeScreenshotService";
     private static final String SYSUI_SCREENSHOT_ERROR_RECEIVER =
             "com.android.systemui.screenshot.ScreenshotServiceErrorReceiver";
+
+    private static final String LAUNCHER_PACKAGE = "com.android.launcher3";
 
     /**
      * Keyguard stuff
@@ -614,6 +622,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     // The last window we were told about in focusChanged.
     WindowState mFocusedWindow;
     IApplicationToken mFocusedApp;
+
+    private boolean mBackKillEnabled;
 
     PointerLocationView mPointerLocationView;
 
@@ -1178,6 +1188,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Global.getUriFor(
                     Settings.Secure.SYSTEM_NAVIGATION_KEYS_ENABLED), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.System.getUriFor(
+                    Settings.System.BUTTON_BACK_KILL_ENABLE), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
         }
@@ -1805,21 +1818,72 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
     }
 
+    private static String resolveCurrentLauncherPackageForUser(Context context,
+            int userId) {
+        final Intent launcherIntent = new Intent(Intent.ACTION_MAIN);
+        launcherIntent.addCategory(Intent.CATEGORY_HOME);
+        final PackageManager pm = context.getPackageManager();
+        final ResolveInfo launcherInfo = pm.resolveActivityAsUser(
+                launcherIntent, 0, userId);
+        if (launcherInfo != null) {
+            if (launcherInfo.activityInfo != null
+                    && !launcherInfo.activityInfo.packageName.equals("android")) {
+                return launcherInfo.activityInfo.packageName;
+            }
+        }
+        return LAUNCHER_PACKAGE;
+    }
+
+    public static void killActiveTask(Context context, int userId) {
+        String defaultHomePackage = resolveCurrentLauncherPackageForUser(
+                context, userId);
+        final ActivityManager am = (ActivityManager) context
+                .getSystemService(Activity.ACTIVITY_SERVICE);
+        final PackageManager pm = context.getPackageManager();
+        List<RunningAppProcessInfo> apps = am.getRunningAppProcesses();
+        RunningAppProcessInfo appInfo = apps.get(0);
+        int uid = appInfo.uid;
+
+        // Make sure it's a foreground user application
+        if (uid >= Process.FIRST_APPLICATION_UID
+                && uid <= Process.LAST_APPLICATION_UID
+                && appInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND) {
+            if (appInfo.pkgList != null && (appInfo.pkgList.length > 0)) {
+                String pkg = appInfo.pkgList[0];
+                String appName;
+                try {
+                    appName = pm.getApplicationLabel(pm.getApplicationInfo(pkg, PackageManager.GET_META_DATA)).toString();
+                } catch (Exception e) {
+                    appName = "Unknown" ;
+                }
+                //String appName = context.getApplicationInfo().loadLabel(context.getPackageManager()).toString();
+                if (!pkg.equals(SYSUI_PACKAGE) && !pkg.equals(defaultHomePackage)) {
+                    am.forceStopPackageAsUser(pkg, userId);
+                    Toast.makeText(context, context.getText(com.android.internal.R.string.app_killed_message) + " : " + appName, Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
     private void backLongPress() {
         mBackKeyHandled = true;
 
-        switch (mLongPressOnBackBehavior) {
-            case LONG_PRESS_BACK_NOTHING:
-                break;
-            case LONG_PRESS_BACK_GO_TO_VOICE_ASSIST:
-                final boolean keyguardActive = mKeyguardDelegate == null
-                        ? false
-                        : mKeyguardDelegate.isShowing();
-                if (!keyguardActive) {
-                    Intent intent = new Intent(Intent.ACTION_VOICE_ASSIST);
-                    startActivityAsUser(intent, UserHandle.CURRENT_OR_SELF);
-                }
-                break;
+	if(mBackKillEnabled) {
+            killActiveTask(mContext, mCurrentUserId);
+        } else {
+            switch (mLongPressOnBackBehavior) {
+                case LONG_PRESS_BACK_NOTHING:
+                    break;
+                case LONG_PRESS_BACK_GO_TO_VOICE_ASSIST:
+                    final boolean keyguardActive = mKeyguardDelegate == null
+                            ? false
+                            : mKeyguardDelegate.isShowing();
+                    if (!keyguardActive) {
+                        Intent intent = new Intent(Intent.ACTION_VOICE_ASSIST);
+                        startActivityAsUser(intent, UserHandle.CURRENT_OR_SELF);
+                    }
+                    break;
+            }
         }
     }
 
@@ -1867,7 +1931,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     }
 
     private boolean hasLongPressOnBackBehavior() {
-        return mLongPressOnBackBehavior != LONG_PRESS_BACK_NOTHING;
+        return (mLongPressOnBackBehavior != LONG_PRESS_BACK_NOTHING) || mBackKillEnabled ;
     }
 
     private boolean hasPanicPressOnBackBehavior() {
@@ -2649,6 +2713,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             // volume rocker wake
             mVolumeRockerWake = Settings.System.getIntForUser(resolver,
                     Settings.System.VOLUME_ROCKER_WAKE, 0, UserHandle.USER_CURRENT) != 0;
+
+            mBackKillEnabled = (Settings.System.getIntForUser(resolver,
+                    Settings.System.BUTTON_BACK_KILL_ENABLE, 1, UserHandle.USER_CURRENT) == 1);
 
             // Configure wake gesture.
             boolean wakeGestureEnabledSetting = Settings.Secure.getIntForUser(resolver,

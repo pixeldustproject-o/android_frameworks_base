@@ -4884,6 +4884,11 @@ public final class Settings {
         public static final String AMBIENT_DISPLAY_WEATHER = "ambient_display_weather";
 
         /**
+         * @hide
+         */
+        public static final String BUTTON_BACK_KILL_ENABLE = "button_back_kill_enable";
+
+        /**
          * Settings to backup. This is here so that it's in the same place as the settings
          * keys and easy to update.
          *
@@ -5089,6 +5094,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(SHOW_LOCKSCREEN_DATE);
             PRIVATE_SETTINGS.add(SHOW_LOCKSCREEN_CLOCK);
             PRIVATE_SETTINGS.add(SHOW_LOCKSCREEN_ALARM);
+            PRIVATE_SETTINGS.add(BUTTON_BACK_KILL_ENABLE);
         }
 
         /**
