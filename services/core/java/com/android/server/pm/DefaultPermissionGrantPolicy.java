@@ -761,6 +761,13 @@ final class DefaultPermissionGrantPolicy {
                 grantRuntimePermissionsLPw(omnijawspackage, LOCATION_PERMISSIONS, userId);
             }
 
+            // Google Markup
+            PackageParser.Package markupPackage = getSystemPackageLPr(
+                    "com.google.android.markup");
+            if (markupPackage != null && doesPackageSupportRuntimePermissions(markupPackage)) {
+                grantRuntimePermissionsLPw(markupPackage, STORAGE_PERMISSIONS, userId);
+            }
+
             mService.mSettings.onDefaultRuntimePermissionsGrantedLPr(userId);
         }
     }
