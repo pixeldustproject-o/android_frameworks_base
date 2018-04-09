@@ -5208,17 +5208,16 @@ public class StatusBar extends SystemUI implements DemoMode,
                     .getWallpaperColors(WallpaperManager.FLAG_SYSTEM);
             useDarkTheme = systemColors != null
                     && (systemColors.getColorHints() & WallpaperColors.HINT_SUPPORTS_DARK_THEME) != 0;
-            // Check for black and white accent so we don't end up
-            // with white on white or black on black
-            unfuckBlackWhiteAccent();
         } else {
             useDarkTheme = mCurrentTheme == 2;
             useBlackTheme = mCurrentTheme == 3;
             useShishuTheme = mCurrentTheme == 4;
             useShishuNightsTheme = mCurrentTheme == 5;
-            unfuckBlackWhiteAccent();
         }
         if (isUsingDarkTheme() != useDarkTheme) {
+            // Check for black and white accent so we don't end up
+            // with white on white or black on black
+            unfuckBlackWhiteAccent();
             ThemeAccentUtils.setLightDarkTheme(mOverlayManager, mCurrentUserId, useDarkTheme);
         }
         if (isUsingBlackTheme() != useBlackTheme) {
