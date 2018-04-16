@@ -323,6 +323,7 @@ public class NotificationManagerService extends SystemService {
     private Uri mInCallNotificationUri;
     private AudioAttributes mInCallNotificationAudioAttributes;
     private float mInCallNotificationVolume;
+    private Binder mCallNotificationToken = null;
     // In call notification vibration strength
     private int mVibrationStrength = 30;
     private boolean mInCallNotificationsVibrate;
@@ -4360,7 +4361,11 @@ public class NotificationManagerService extends SystemService {
                     if (!mInCallNotificationsVibrate) {
                         final IRingtonePlayer player = mAudioManager.getRingtonePlayer();
                         if (player != null) {
-                            player.play(new Binder(), mInCallNotificationUri,
+                            if (mCallNotificationToken != null) {
+                                player.stop(mCallNotificationToken);
+                            }
+                            mCallNotificationToken = new Binder();
+                            player.play(mCallNotificationToken, mInCallNotificationUri,
                                     mInCallNotificationAudioAttributes,
                                     mInCallNotificationVolume, false);
                         }
