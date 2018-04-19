@@ -196,6 +196,7 @@ public class CustomTile extends QSTileImpl<State> implements TileChangeListener 
     @Override
     public void handleSetListening(boolean listening) {
         if (mListening == listening) return;
+        if (mServiceManager == null) return;
         mListening = listening;
         if (mServiceManager == null) {
             return;
@@ -296,6 +297,7 @@ public class CustomTile extends QSTileImpl<State> implements TileChangeListener 
     @Override
     protected void handleUpdateState(State state, Object arg) {
         int tileState = mTile.getState();
+        if (mServiceManager == null) return;
         if (mServiceManager.hasPendingBind()) {
             tileState = Tile.STATE_UNAVAILABLE;
         }
