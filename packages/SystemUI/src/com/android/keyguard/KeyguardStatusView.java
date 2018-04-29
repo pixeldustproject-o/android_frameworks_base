@@ -227,7 +227,7 @@ public class KeyguardStatusView extends GridLayout implements
         layoutParams.bottomMargin = getResources().getDimensionPixelSize(
                 R.dimen.bottom_text_spacing_digital);
         mClockView.setLayoutParams(layoutParams);
-        mClockView.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+        mClockView.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
         mDateView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimensionPixelSize(R.dimen.widget_label_font_size));
         if (mOwnerInfo != null) {
@@ -544,7 +544,7 @@ public class KeyguardStatusView extends GridLayout implements
         int lockClockFont = isPrimary ? getLockClockFont() : 0;
 
         if (lockClockFont == 0) {
-            mClockView.setTypeface(Typeface.create("sans-serif", Typeface.NORMAL));
+            mClockView.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
         }
         if (lockClockFont == 1) {
             mClockView.setTypeface(Typeface.create("sans-serif", Typeface.BOLD));
