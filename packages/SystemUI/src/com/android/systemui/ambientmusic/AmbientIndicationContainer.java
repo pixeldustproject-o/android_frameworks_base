@@ -136,6 +136,7 @@ public class AmbientIndicationContainer extends AutoReinflateContainer {
             mInfoToSet = charSequence.toString();
         } else if (!TextUtils.isEmpty(notificationText)) {
             mInfoToSet = notificationText;
+            mLengthInfo = null;
         }
 
         mInfoAvailable = mInfoToSet != null;
