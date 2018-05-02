@@ -33,7 +33,7 @@ import com.android.systemui.qs.tileimpl.QSTileImpl;
 
 public class RebootTile extends QSTileImpl<BooleanState> {
 
-    private boolean mRebootToRecovery = false;
+    private int mRebootToRecovery = 0;
     private IStatusBarService mBarService;
 
     public RebootTile(QSHost host) {
@@ -47,7 +47,13 @@ public class RebootTile extends QSTileImpl<BooleanState> {
 
     @Override
     public void handleClick() {
-        mRebootToRecovery = !mRebootToRecovery;
+        if (mRebootToRecovery == 0) {
+            mRebootToRecovery = 1;
+        } else if (mRebootToRecovery == 1) {
+            mRebootToRecovery = 2;
+        } else {
+            mRebootToRecovery = 0;
+        }
         refreshState();
     }
 
@@ -56,12 +62,20 @@ public class RebootTile extends QSTileImpl<BooleanState> {
         mHost.collapsePanels();
         mBarService = IStatusBarService.Stub.asInterface(
                 ServiceManager.getService(Context.STATUS_BAR_SERVICE));
+        PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             public void run() {
-                try {
-                    mBarService.reboot(false, mRebootToRecovery ? PowerManager.REBOOT_RECOVERY : "");
-                } catch (RemoteException e) {
+                if (mRebootToRecovery == 1) {
+                    try {
+                        mBarService.reboot(false, PowerManager.REBOOT_RECOVERY);
+                    } catch (RemoteException e) { }
+                } else if (mRebootToRecovery == 2) {
+                    pm.shutdown(false, pm.SHUTDOWN_USER_REQUESTED, false);
+                } else {
+                    try {
+                        mBarService.reboot(false, "");
+                    } catch (RemoteException e) { }
                 }
             }
         }, 500);
@@ -84,9 +98,12 @@ public class RebootTile extends QSTileImpl<BooleanState> {
 
     @Override
     protected void handleUpdateState(BooleanState state, Object arg) {
-        if (mRebootToRecovery) {
+        if (mRebootToRecovery == 1) {
             state.label = mContext.getString(R.string.quick_settings_reboot_recovery_label);
             state.icon = ResourceIcon.get(R.drawable.ic_qs_reboot_recovery);
+        } else if (mRebootToRecovery == 2) {
+            state.label = mContext.getString(R.string.quick_settings_poweroff_label);
+            state.icon = ResourceIcon.get(R.drawable.ic_qs_poweroff);
         } else {
             state.label = mContext.getString(R.string.quick_settings_reboot_label);
             state.icon = ResourceIcon.get(R.drawable.ic_qs_reboot);
