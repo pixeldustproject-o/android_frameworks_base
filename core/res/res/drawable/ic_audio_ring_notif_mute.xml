@@ -18,7 +18,7 @@ Copyright (C) 2014 The Android Open Source Project
         android:height="24dp"
         android:viewportWidth="24.0"
         android:viewportHeight="24.0"
-        android:tint="?attr/colorControlNormal">
+        android:tint="@*android:color/accent_device_default_light">
     <path
         android:fillColor="#FF000000"
         android:pathData="m11.977,2.023c-0.828,0 -1.5,0.672 -1.5,1.5v0.68c-0.621,0.147 -1.197,0.399 -1.735,0.709l1.467,1.467c0.542,-0.229 1.139,-0.355 1.768,-0.355 2.5,0 4.5,2 4.5,4.5v2.123l2,2v-4.123c0,-3.07 -2.14,-5.64 -5,-6.32v-0.68c0,-0.828 -0.672,-1.5 -1.5,-1.5zM17.194,19.023 L15.194,17.023h-7.717v-6.5c0,-0.374 0.056,-0.73 0.141,-1.076l-1.561,-1.56c-0.361,0.808 -0.58,1.694 -0.58,2.636v5.5l-2,2v1zM9.977,20.023c0,1.105 0.895,2 2,2s2,-0.895 2,-2z"/>
