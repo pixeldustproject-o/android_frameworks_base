@@ -21,7 +21,6 @@
         <item>reboot_recovery</item>
         <item>reboot_bootloader</item>
         <item>reboot_systemui</item>
-        <item>reboot_soft</item>
     </string-array>
 
     <!-- Defines all possible global actions -->
