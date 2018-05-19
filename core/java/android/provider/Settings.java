@@ -8408,6 +8408,20 @@ public final class Settings {
                 "quick_settings_quick_pull_down";
 
         /**
+         * Whether Ambient Play enabled/disabled
+         *
+         * @hide
+         */
+        public static final String AMBIENT_RECOGNITION = "ambient_recognition";
+
+        /**
+         * Whether Ambient Play is shown on the lockscreen
+         *
+         * @hide
+         */
+        public static final String AMBIENT_RECOGNITION_KEYGUARD = "ambient_recognition_keyguard";
+
+        /**
          * Settings to reset on user request. They will fall back to their default value (0).
          *
          * @hide
