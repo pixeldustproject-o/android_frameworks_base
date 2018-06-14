@@ -50,6 +50,7 @@ import android.content.IntentFilter;
 import android.content.pm.UserInfo;
 import android.content.ServiceConnection;
 import android.database.ContentObserver;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.hardware.camera2.CameraManager;
@@ -137,6 +138,9 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
     private static final String GLOBAL_ACTION_KEY_SCREENSHOT = "screenshot";
     private static final String GLOBAL_ACTION_KEY_SCREENRECORD = "screenrecord";
     private static final String GLOBAL_ACTION_KEY_TORCH = "torch";
+
+    // Default scrim color
+    private static final int SCRIM_DEFAULT_COLOR = Color.BLACK;
 
     private final Context mContext;
     private final GlobalActionsManager mWindowManagerFuncs;
@@ -1740,8 +1744,9 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
             mContext.getDisplay().getRealSize(displaySize);
             mColorExtractor.addOnColorsChangedListener(this);
             mGradientDrawable.setScreenSize(displaySize.x, displaySize.y);
-            GradientColors colors = mColorExtractor.getColors(mKeyguardShowing ?
-                    WallpaperManager.FLAG_LOCK : WallpaperManager.FLAG_SYSTEM);
+            GradientColors colors = getDarkGradientColor(
+                    mColorExtractor.getColors(mKeyguardShowing ? 
+                    WallpaperManager.FLAG_LOCK : WallpaperManager.FLAG_SYSTEM));
             mGradientDrawable.setColors(colors, false);
         }
 
@@ -1812,13 +1817,23 @@ class GlobalActionsDialog implements DialogInterface.OnDismissListener, DialogIn
         public void onColorsChanged(ColorExtractor extractor, int which) {
             if (mKeyguardShowing) {
                 if ((WallpaperManager.FLAG_LOCK & which) != 0) {
-                    mGradientDrawable.setColors(extractor.getColors(WallpaperManager.FLAG_LOCK));
+                    mGradientDrawable.setColors(getDarkGradientColor(
+                            extractor.getColors(WallpaperManager.FLAG_LOCK)));
                 }
             } else {
                 if ((WallpaperManager.FLAG_SYSTEM & which) != 0) {
-                    mGradientDrawable.setColors(extractor.getColors(WallpaperManager.FLAG_SYSTEM));
+                    mGradientDrawable.setColors(getDarkGradientColor(
+                            extractor.getColors(WallpaperManager.FLAG_SYSTEM)));
                 }
             }
+        }
+
+        private GradientColors getDarkGradientColor(GradientColors fromWallpaper) {
+            GradientColors colors = new GradientColors();
+            colors.setMainColor(SCRIM_DEFAULT_COLOR);
+            colors.setSecondaryColor(SCRIM_DEFAULT_COLOR);
+            colors.setSupportsDarkText(fromWallpaper.supportsDarkText());
+            return colors;
         }
 
         public void setKeyguardShowing(boolean keyguardShowing) {
