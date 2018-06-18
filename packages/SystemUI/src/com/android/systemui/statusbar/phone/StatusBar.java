@@ -5297,6 +5297,8 @@ public class StatusBar extends SystemUI implements DemoMode,
             try {
                 mOverlayManager.setEnabled("com.android.system.theme.shishu",
                         useShishuTheme, mCurrentUserId);
+                mOverlayManager.setEnabled("com.android.systemui.theme.shishu",
+                        useShishuTheme, mCurrentUserId);
                 mOverlayManager.setEnabled("com.android.settings.theme.shishu",
                         useShishuTheme, mCurrentUserId);
             } catch (RemoteException e) {
@@ -5307,6 +5309,8 @@ public class StatusBar extends SystemUI implements DemoMode,
         if (isUsingShishuNightsTheme() != useShishuNightsTheme) {
             try {
                 mOverlayManager.setEnabled("com.android.system.theme.shishunights",
+                        useShishuNightsTheme, mCurrentUserId);
+                mOverlayManager.setEnabled("com.android.systemui.theme.shishunights",
                         useShishuNightsTheme, mCurrentUserId);
                 mOverlayManager.setEnabled("com.android.settings.theme.shishunights",
                         useShishuNightsTheme, mCurrentUserId);
