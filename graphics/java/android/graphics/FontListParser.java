@@ -92,7 +92,8 @@ public class FontListParser {
                 skip(parser);
             }
         }
-        return new FontConfig(families, aliases);
+        return new FontConfig(families.toArray(new FontConfig.Family[families.size()]),
+                aliases.toArray(new FontConfig.Alias[aliases.size()]));
     }
 
     private static FontConfig.Family readFamily(XmlPullParser parser, String dirPath)
