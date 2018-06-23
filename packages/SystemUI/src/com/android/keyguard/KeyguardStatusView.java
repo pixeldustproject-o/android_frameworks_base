@@ -67,7 +67,6 @@ public class KeyguardStatusView extends GridLayout implements
     private static final boolean DEBUG = KeyguardConstants.DEBUG;
     private static final String TAG = "KeyguardStatusView";
     private static final int MARQUEE_DELAY_MS = 2000;
-    private static final String FONT_FAMILY = "sans-serif-light";
 
     private final LockPatternUtils mLockPatternUtils;
     private final AlarmManager mAlarmManager;
@@ -221,10 +220,8 @@ public class KeyguardStatusView extends GridLayout implements
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Typeface tf = Typeface.create(FONT_FAMILY, Typeface.NORMAL);
         mClockView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimensionPixelSize(R.dimen.widget_big_font_size));
-        mClockView.setTypeface(tf);
         // Some layouts like burmese have a different margin for the clock
         MarginLayoutParams layoutParams = (MarginLayoutParams) mClockView.getLayoutParams();
         layoutParams.bottomMargin = getResources().getDimensionPixelSize(
@@ -233,13 +230,10 @@ public class KeyguardStatusView extends GridLayout implements
         mClockView.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
         mDateView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                 getResources().getDimensionPixelSize(R.dimen.widget_label_font_size));
-        mDateView.setTypeface(tf);
         if (mOwnerInfo != null) {
             mOwnerInfo.setTextSize(TypedValue.COMPLEX_UNIT_PX,
                     getResources().getDimensionPixelSize(R.dimen.widget_label_font_size));
-           mOwnerInfo.setTypeface(tf);
         }
-        mAlarmStatusView.setTypeface(tf);
     }
 
     private int getLockClockFont() {
