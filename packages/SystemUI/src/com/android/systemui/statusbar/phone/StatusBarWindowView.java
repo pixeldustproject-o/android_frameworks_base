@@ -755,14 +755,11 @@ public class StatusBarWindowView extends FrameLayout {
         ContentResolver resolver = mContext.getContentResolver();
         boolean isDoubleTapLockscreenEnabled = Settings.System.getIntForUser(resolver,
                 Settings.System.DOUBLE_TAP_SLEEP_LOCKSCREEN, 1, UserHandle.USER_CURRENT) == 1;
-        boolean isQsQuickPulldown = Settings.System.getIntForUser(resolver,
-                Settings.System.STATUS_BAR_QUICK_QS_PULLDOWN, 1, UserHandle.USER_CURRENT) == 1;
         boolean doubleTapToSleepEnabled = Settings.System.getIntForUser(resolver,
                 Settings.System.DOUBLE_TAP_SLEEP_GESTURE, 1, UserHandle.USER_CURRENT) == 1;
 
         if (mNotificationPanel != null) {
             mNotificationPanel.setLockscreenDoubleTapToSleep(isDoubleTapLockscreenEnabled);
-            mNotificationPanel.setQsQuickPulldown(isQsQuickPulldown);
             mNotificationPanel.updateDoubleTapToSleep(doubleTapToSleepEnabled);
         }
         if (mDragDownHelper != null) {
