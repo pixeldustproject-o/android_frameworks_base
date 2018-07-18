@@ -6578,9 +6578,6 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.QS_COLUMNS_LANDSCAPE),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
-                    Settings.System.QS_TILE_TITLE_VISIBILITY),
-                    false, this, UserHandle.USER_ALL);
-            resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_GESTURE),
                     false, this, UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.System.getUriFor(
@@ -6642,10 +6639,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                     uri.equals(Settings.System.getUriFor(Settings.System.QS_ROWS_LANDSCAPE)) ||
                     uri.equals(Settings.System.getUriFor(Settings.System.QS_COLUMNS_PORTRAIT)) ||
                     uri.equals(Settings.System.getUriFor(Settings.System.QS_COLUMNS_LANDSCAPE))) {
-                updateQsPanelResources();
-            } else if (uri.equals(Settings.System.getUriFor(Settings.System.QS_TILE_TITLE_VISIBILITY))) {
-                updateQsPanelResources();
-                setQsPanelOptions();
+                setQsRowsColumns();
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.DOUBLE_TAP_SLEEP_GESTURE))) {
                 setStatusBarWindowViewOptions();
@@ -6702,7 +6696,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             splitAndAddToArrayList(mBlacklist, blackString, "\\|");
             splitAndAddToArrayList(mWhitelist, whiteString, "\\|");
             setQsPanelOptions();
-            updateQsPanelResources();
+            setQsRowsColumns();
             setUseLessBoringHeadsUp();
             updateRecentsMode();
             setForceAmbient();
@@ -6768,7 +6762,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         }
     }
 
-    private void updateQsPanelResources() {
+    private void setQsRowsColumns() {
         if (mQSPanel != null) {
             mQSPanel.updateResources();
         }

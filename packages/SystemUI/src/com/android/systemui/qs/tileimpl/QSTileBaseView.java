@@ -228,8 +228,4 @@ public class QSTileBaseView extends com.android.systemui.plugins.qs.QSTileView {
             }
         }
     }
-
-    public void textVisibility() {
-        //
-    }
 }
