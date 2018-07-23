@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     Copyright (C) 2018 The Pixel Dust Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- LTE QS Tile -->
+    <string name="qs_lte_label">LTE</string>
+    <string name="lte_on">LTE ZAP.</string>
+    <string name="lte_off">LTE VYP.</string>
+
+    <!-- Caffeine Tile -->
+    <string name="quick_settings_caffeine_label">Kofein</string>
+
+    <string name="global_action_restart_advanced">Rozšířený restart</string>
+    <string name="global_action_screenrecord">Záznam obrazovky</string>
+
+    <!-- Reboot/Recovery QS Tile -->
+    <string name="quick_settings_reboot_label">Restartovat</string>
+    <string name="quick_settings_reboot_recovery_label">Do recovery</string>
+
+    <string name="statusbar_items_title">Upravit ikony</string>
+
+    <string name="quick_settings_pip_tile_app_na">Aplikace nepodporuje PiP</string>
+
+    <!-- Screenshot QS tile -->
+    <string name="quick_settings_screenshot_label">Snímek obrazovky</string>
+    <string name="quick_settings_region_screenshot_label">Částečný snímek obraz.</string>
+
+    <!-- ADB network tile -->
+    <string name="quick_settings_adb_network">Ladění po síti</string>
+    <string name="quick_settings_network_adb_disabled_label">Ladění VYP.</string>
+    <string name="quick_settings_network_adb_enabled_label">Ladění ZAP.</string>
+
+    <!-- QuickSettings: Sound [CHAR LIMIT=NONE] -->
+    <string name="quick_settings_sound_label">Zvuk</string>
+    <string name="quick_settings_sound_ring">Zvonění</string>
+    <string name="quick_settings_sound_vibrate">Vibrace</string>
+    <string name="quick_settings_sound_dnd">Nerušit</string>
+
+    <!-- Heads Up QS Tile -->
+    <string name="quick_settings_heads_up_label">Vyskakující upozornění</string>
+    <string name="accessibility_quick_settings_heads_up_off">Vyskakující upozornění jsou vypnuta.</string>
+    <string name="accessibility_quick_settings_heads_up_on">Vyskakující upozornění jsou zapnuta.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_off">Vyskakující upozornění byly vypnuty.</string>
+    <string name="accessibility_quick_settings_heads_up_changed_on">Vyskakující upozornění byly zapnuty.</string>
+
+    <!-- Heads up snooze toast -->
+    <string name="heads_up_snooze_message_one_minute"><xliff:g id="string">%s</xliff:g> - Vyskakující upozornění bude odloženo o 1 minutu.</string>
+    <string name="heads_up_snooze_message"><xliff:g id="string">%s</xliff:g> - Vyskakující upozornění bude odloženo o <xliff:g id="number">%d</xliff:g> minut.</string>
+
+    <!-- Indication on the keyguard that is shown when the device is charging with a dash charger. Should match keyguard_plugged_in_dash_charging [CHAR LIMIT=40]-->
+    <string name="keyguard_indication_dash_charging_time">Nabíjení Dash (<xliff:g id="charging_time_left" example="4 hours and 2 minutes">%s</xliff:g> до полной)</string>
+    <string name="keyguard_plugged_in_dash_charging">Nabíjení Dash</string>
+
+    <!-- Screenrecord Notification Ticker -->
+    <string name="screenrecord_notif_ticker">Obrazovka se nahrává</string>
+    <!-- Screenrecord notification title -->
+    <string name="screenrecord_notif_title">Nahrávání obrazovky</string>
+    <!-- Screenrecord notification action: Stop -->
+    <string name="screenrecord_notif_stop">Zastavit</string>
+    <!-- Screenrecord notification action: show/hide pointer -->
+    <string name="screenrecord_notif_pointer_on">Zobrazit ukazovatel</string>
+    <string name="screenrecord_notif_pointer_off">Skrýt ukazovatel</string>
+    <!-- Screen record notification error title -->
+    <string name="screenrecord_notif_error">Nelze nahrávat obrazovku</string>
+    <string name="notification_channel_screenrecord">Nahrávky obrazovky</string>
+
+    <!-- Screenrecord Tile -->
+    <string name="quick_settings_screenrecord">Záznam obrazovky</string>
+
+    <string name="lockscreen_default">Výchozí</string>
+    <string name="lockscreen_hidden">Nic</string>
+
+    <!-- Shows when people have clicked on the custom lockscreen shortcut [CHAR LIMIT=60] -->
+    <string name="custom_hint">Posuňte prst z ikony směrem do středu obrazovky</string>
+
+    <string name="status_bar_roaming">Roaming</string>
+
+    <string name="status_bar_data_saver">Spořič dat</string>
+
+    <!-- HW Keys Tile -->
+    <string name="accessibility_quick_settings_hwkeys_on">Tlačítka zap.</string>
+    <string name="accessibility_quick_settings_hwkeys_off">Tlačítka vyp.</string>
+    <string name="quick_settings_hwkeys_label">HW tlačítka</string>
+
+    <!-- Volume QS Tile -->
+    <string name="quick_settings_volume_panel_label">Panel hlasitosti</string>
+
+    <string name="quick_settings_usb_tether_label">USB modem</string>
+
+    <!-- Caffeine tile -->
+    <string name="caffeine_info_title">Pomůcka</string>
+    <string name="caffeine_info_message">Kofeinová dlaždice je jednoduchá dlaždice, kterou můžete zapnout, aby zůstala obrazovka trvale zapnutá.\n\nVšimnite si, že stav dlaždic se po vypnutí obrazovky sám vynuluje.</string>
+
+    <!-- Expanded desktop tile -->
+    <string name="quick_settings_expanded_desktop_label">Rozšířená plocha</string>
+    <string name="quick_settings_expanded_desktop">Rozšířená</string>
+    <string name="quick_settings_expanded_desktop_off">Normální</string>
+</resources>
