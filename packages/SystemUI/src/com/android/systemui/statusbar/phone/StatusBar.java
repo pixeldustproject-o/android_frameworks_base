@@ -5248,8 +5248,13 @@ public class StatusBar extends SystemUI implements DemoMode,
     }
 
     private void getCurrentThemeSetting() {
-        mCurrentTheme = Settings.System.getIntForUser(mContext.getContentResolver(),
+        if (!mContext.getResources().getBoolean(
+            com.android.internal.R.bool.config_supportSystemUIThemes)) {
+            mCurrentTheme = 1; //force light
+        } else {
+            mCurrentTheme = Settings.System.getIntForUser(mContext.getContentResolver(),
                 Settings.System.SYSTEM_UI_THEME, 0, mCurrentUserId);
+        }
     }
 
     /**
