@@ -60,7 +60,6 @@ public abstract class Ticker implements DarkReceiver {
     private int mTextColor = 0xffffffff;
 
     private MediaMetadata mShowingMediaMetadata;
-    private String mShowingNotificationText;
 
     private NotificationColorUtil mNotificationColorUtil;
 
@@ -203,7 +202,7 @@ public abstract class Ticker implements DarkReceiver {
     }
 
 
-    public void addEntry(StatusBarNotification n, boolean isMusic, MediaMetadata mediaMetaData, String notificationText) {
+    public void addEntry(StatusBarNotification n, boolean isMusic, MediaMetadata mediaMetaData) {
         int initialCount = mSegments.size();
         ContentResolver resolver = mContext.getContentResolver();
 
@@ -224,13 +223,6 @@ public abstract class Ticker implements DarkReceiver {
                 }
                 mShowingMediaMetadata = mediaMetaData;
                 n.getNotification().tickerText = artist.toString() + " - " + album.toString() + " - " + title.toString();
-            } else if (notificationText != null) {
-                if (mShowingNotificationText != null && notificationText.equals(mShowingNotificationText)) {
-                    // Already shown
-                    return;
-                }
-                mShowingNotificationText = notificationText;
-                n.getNotification().tickerText = notificationText;
             } else {
                 return;
             }
@@ -316,7 +308,6 @@ public abstract class Ticker implements DarkReceiver {
 
     public void resetShownMediaMetadata() {
         mShowingMediaMetadata = null;
-        mShowingNotificationText = null;
     }
 
     public void setViews(TextSwitcher ts, ImageSwitcher is) {
